@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="BreaktheBlocks.iOS">
+      <UniqueIdentifier>{cedf09f9-e9fd-49a3-a5c3-e52122eccffd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BreaktheBlocks.iOS\Images.xcassets">
+      <UniqueIdentifier>{7ebe8a63-1cb0-4d64-8b93-77775fb99ad9}</UniqueIdentifier>
+      <Extensions>BreaktheBlocks.iOS\Images.xcassets\*</Extensions>
+    </Filter>
+    <Filter Include="BreaktheBlocks.iOS\Images.xcassets\AppIcon.appiconset">
+      <UniqueIdentifier>{da8f79bb-32ad-4d82-a83b-5cdc47bdc572}</UniqueIdentifier>
+      <Extensions>BreaktheBlocks.iOS\Images.xcassets\AppIcon.appiconset\*</Extensions>
+    </Filter>
+    <Filter Include="BreaktheBlocks.iOS\Supporting Files">
+      <UniqueIdentifier>{2ccaed6c-4377-4303-b207-6263f711f4b3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BreaktheBlocks.iOS\AppDelegate.m">
+      <Filter>BreaktheBlocks.iOS</Filter>
+    </ClCompile>
+    <ClCompile Include="BreaktheBlocks.iOS\GameViewController.m">
+      <Filter>BreaktheBlocks.iOS</Filter>
+    </ClCompile>
+    <ClCompile Include="BreaktheBlocks.iOS\main.m">
+      <Filter>BreaktheBlocks.iOS\Supporting Files</Filter>
+    </ClCompile>
+    <ClInclude Include="BreaktheBlocks.iOS\AppDelegate.h">
+      <Filter>BreaktheBlocks.iOS</Filter>
+    </ClInclude>
+    <ClInclude Include="BreaktheBlocks.iOS\GameViewController.h">
+      <Filter>BreaktheBlocks.iOS</Filter>
+    </ClInclude>
+    <Content Include="BreaktheBlocks.iOS\Base.lproj\Main.storyboard">
+      <Filter>BreaktheBlocks.iOS</Filter>
+    </Content>
+    <Content Include="BreaktheBlocks.iOS\Images.xcassets\AppIcon.appiconset\Contents.json">
+      <Filter>BreaktheBlocks.iOS\Images.xcassets\AppIcon.appiconset</Filter>
+    </Content>
+    <InfoPlist Include="BreaktheBlocks.iOS\Info.plist">
+      <Filter>BreaktheBlocks.iOS\Supporting Files</Filter>
+    </InfoPlist>
+  </ItemGroup>
+</Project>
