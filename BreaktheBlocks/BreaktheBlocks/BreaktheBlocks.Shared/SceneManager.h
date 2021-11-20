@@ -3,8 +3,8 @@
 #include <InputManager.h>
 #define MAXBALLCOUNT 200
 #define MAXWALLCOUNT 4
-#define MAXBLOCKCOLCOUNT 15
-#define MAXBLOCKROWCOUNT 5
+#define MAXBLOCKCOLCOUNT 9
+#define MAXBLOCKROWCOUNT 6
 
 enum StageState
 {
@@ -19,7 +19,7 @@ class SceneManager
 		Renderer* renderer;
 
 		GameObject Balls[200]; // 최대 개수 200개로 설정 
-		GameObject Blocks[15][5];// 가로 5개 세로 3*5개 최대 --> 75개면 충분
+		GameObject Blocks[MAXBLOCKCOLCOUNT][MAXBLOCKROWCOUNT];// 가로 5개 세로 3*5개 최대 --> 75개면 충분
 		GameObject Walls[4];
 
 		InputManager* inputManager;

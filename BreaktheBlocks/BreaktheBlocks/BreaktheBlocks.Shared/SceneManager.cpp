@@ -11,11 +11,11 @@ SceneManager::SceneManager(GLuint width, GLuint height)
 			renderer->setupRenderer(Blocks[i][j], RECTANGLE);
 			GLfloat xPos;
 			GLfloat yPos;
-			Blocks[i][j].setScale(0.2f, 0.06f);
+			Blocks[i][j].setScale(1.0f/ MAXBLOCKROWCOUNT, 1.0f / MAXBLOCKCOLCOUNT);
 			transScreenToGL(width, height, width * Blocks[i][j].getScale().x * (j + 0.5f) ,
 				(height - width)* 0.5f + i * width * Blocks[i][j].getScale().y, &xPos, &yPos);			
 			Blocks[i][j].setPosition(xPos, yPos);
-			Blocks[i][j].setScale(0.19f, 0.055f);
+			Blocks[i][j].setScale(1.0f / MAXBLOCKROWCOUNT * 0.95, 1.0f / MAXBLOCKCOLCOUNT  * 0.95);
 			Blocks[i][j].isActive = true;
 			Blocks[i][j].isMove = false;
 		}
@@ -67,7 +67,7 @@ void SceneManager::updateScene()
 		if (Balls[i].isActive)
 			renderer->drawGameObject(Balls[i]);
 		if (Balls[i].isMove)
-			Balls[i].physicsUpdate(0.01f);
+			Balls[i].physicsUpdate(0.02f);
 	}
 	//for (int i = 0; i < MAXWALLCOUNT; ++i)
 	//{
