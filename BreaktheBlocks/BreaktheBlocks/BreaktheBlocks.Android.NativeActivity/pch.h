@@ -13,6 +13,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/resource.h>
+#include <iostream>
 
 #include <EGL/egl.h>
 #include <GLES3/gl3.h>
@@ -20,5 +21,5 @@
 
 #include <android/sensor.h>
 
-#include <android/log.h>
+#include <android/log.h>              
 #include "android_native_app_glue.h"

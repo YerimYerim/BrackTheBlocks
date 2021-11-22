@@ -15,8 +15,17 @@ void GameObject::changeDirection(CollisionDirection direction)
 	}
 }
 
-void GameObject::setPosition(GLfloat deltaX, GLfloat deltaY)
+void GameObject::setPosition(GLfloat deltaX = NULL, GLfloat deltaY = NULL)
 {
+	if (deltaX == NULL)
+	{
+		deltaX = Position.x;
+	}
+	if (deltaY == NULL)
+	{
+		deltaY = Position.y;
+	}
+	
 	Position.x = deltaX;
 	Position.y = deltaY;
 }
@@ -27,6 +36,7 @@ GameObject::GameObject()
 
 GameObject::GameObject(const GLfloat *vertexPos, const GLfloat *colorPos , GLint vertexSize, GLint colorSize)
 {
+	Position = { 0.0f,0.0f,0.0f };
 	vertexPoseSize = vertexSize / sizeof(GLint);
 	colorPoseSize = colorSize / sizeof(GLint);
 
@@ -106,3 +116,22 @@ void GameObject::physicsUpdate(GLfloat Speed)
 	Position.x += moveDirection.x * Speed;
 	Position.y += moveDirection.y * Speed;
 }
+void GameObject::setActive(GLboolean isactive)
+{
+	isActive = isactive;
+}
+void GameObject::setMoveActive(GLboolean ismove)
+{
+	isMove = ismove;
+}
+
+GLboolean GameObject::getActive()
+{
+	return isActive;
+}
+
+GLboolean GameObject::getMoveActive()
+{
+	return isMove;
+}
+

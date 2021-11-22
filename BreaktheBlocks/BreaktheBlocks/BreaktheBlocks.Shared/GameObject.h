@@ -9,11 +9,14 @@ class GameObject
 	private:
 		vec3 Scale = { 1,1,1 };
 		vec3 Color = {0,0,0};
+		vec3 moveDirection = { 0,0,0 };
 
-	protected:	
+		GLboolean isActive = false;
+		GLboolean isMove = false;
+		GLint hp = 0;
 
-	public:
-		vec3 Position = { 0.0f,0.0f,0.0f};	
+public:
+		vec3 Position;	
 		GLfloat* vertexPosition;
 		GLfloat* colorPosition;
 
@@ -24,23 +27,24 @@ class GameObject
 		GLuint vertexBuffer;
 		GLuint colorBuffer;
 
-		GLboolean isActive = false;
-		GLboolean isMove= false;
-
-		GLint hp = 0;
-		vec3 moveDirection = { 0,0,0 };
 		GameObject();	
 		GameObject(const GLfloat* vertexPos, const GLfloat* colorPos, GLint vertexSize, GLint colorSize);
 		~GameObject();
 
-		vec3 getScale();
 		void setScale(GLfloat x, GLfloat y);
-		void changeDirection(CollisionDirection direction);
+		vec3 getScale();
+
 		void setPosition(GLfloat deltaX, GLfloat deltaY);
+		
+		void setActive(GLboolean isactive);
+		GLboolean getActive();
+
+		void setMoveActive(GLboolean ismove);
+		GLboolean getMoveActive();
+		
 		GLboolean CheckCollider(GameObject& object);
-
-		void addForce(vec3& direction);
 		void physicsUpdate(GLfloat Speed);
-
+		void addForce(vec3& direction);
+		void changeDirection(CollisionDirection direction);
 };
 

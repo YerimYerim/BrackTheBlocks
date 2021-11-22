@@ -64,7 +64,7 @@ void InputManager::inputTouchOff(GameObject& gameobject)
 	{
 		// น฿ป็!
 		gameobject.addForce(direction);
-		gameobject.isMove = true;
+		gameobject.setMoveActive(true);
 	}
 	else if (isShootReady == false)
 	{

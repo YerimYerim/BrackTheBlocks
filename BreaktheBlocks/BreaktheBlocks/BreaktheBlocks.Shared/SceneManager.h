@@ -1,6 +1,7 @@
 #pragma once
 #include <Renderer.h>
 #include <InputManager.h>
+#include <deque>
 #define MAXBALLCOUNT 200
 #define MAXWALLCOUNT 4
 #define MAXBLOCKCOLCOUNT 9
@@ -24,7 +25,13 @@ class SceneManager
 
 		InputManager* inputManager;
 		StageState stageState = WAIT;
+		GLboolean isGameOver = false;
+		
 		GLuint roundCount = 1;
+		const GLuint screenWidth;
+		const GLuint screenHeight;
+		std::deque<GLuint> Number;
+		GLuint GenBlockProbability = 6;
 
 	public:
 		SceneManager(GLuint width, GLuint height);
@@ -32,8 +39,9 @@ class SceneManager
 
 		void updateScene();
 		void input(int32_t actionType, GLfloat x, GLfloat y);
-		void initBlockLine(int lineNum);
-		
+		void initBlockLine();
+		void setBlockPos(GLuint nowCol, GLuint nowRow, const GLuint& width, const GLuint& height,
+			GLuint afterCol, GLuint afterRow);
 		void checkCollision();
 };
 
