@@ -1,6 +1,6 @@
 #pragma once
-#include <Renderer.h>
-#include <InputManager.h>
+#include "Renderer.h"
+#include "InputManager.h"
 #include <deque>
 #define MAXBALLCOUNT 200
 #define MAXWALLCOUNT 4
@@ -13,17 +13,19 @@ enum StageState
 	SHOOT = 1,
 	END = 2,
 };
-
+enum Wall
+{
+	BOTTOM,TOP,LEFT,RIGHT
+};
 class SceneManager
 {
 	private:
 		Renderer* renderer;
+		InputManager* inputManager;
 
 		GameObject Balls[200]; // 최대 개수 200개로 설정 
 		GameObject Blocks[MAXBLOCKCOLCOUNT][MAXBLOCKROWCOUNT];// 가로 5개 세로 3*5개 최대 --> 75개면 충분
 		GameObject Walls[4];
-
-		InputManager* inputManager;
 		StageState stageState = WAIT;
 		GLboolean isGameOver = false;
 		
@@ -31,7 +33,7 @@ class SceneManager
 		const GLuint screenWidth;
 		const GLuint screenHeight;
 		std::deque<GLuint> Number;
-		GLuint GenBlockProbability = 6;
+		GLuint GenBlockProbability = 10;
 
 	public:
 		SceneManager(GLuint width, GLuint height);

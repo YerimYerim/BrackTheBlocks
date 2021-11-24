@@ -13,7 +13,7 @@ class GameObject
 
 		GLboolean isActive = false;
 		GLboolean isMove = false;
-		GLint hp = 0;
+		GLint Hp = 0;
 
 public:
 		vec3 Position;	
@@ -42,6 +42,9 @@ public:
 		void setMoveActive(GLboolean ismove);
 		GLboolean getMoveActive();
 		
+		void setHp(GLint hp);
+		GLint getHp();
+
 		GLboolean CheckCollider(GameObject& object);
 		void physicsUpdate(GLfloat Speed);
 		void addForce(vec3& direction);

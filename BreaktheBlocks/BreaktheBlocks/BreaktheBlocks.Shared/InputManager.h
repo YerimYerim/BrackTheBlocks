@@ -1,6 +1,6 @@
 #pragma once
-#include <GameUtility.h>
-#include <GameObject.h>
+#include "GameUtility.h"
+#include "GameObject.h"
 
 class InputManager
 {

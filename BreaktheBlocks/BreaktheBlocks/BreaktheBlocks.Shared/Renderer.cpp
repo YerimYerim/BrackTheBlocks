@@ -1,7 +1,5 @@
 
-#include <string>
-#include <stdlib.h>
-#include <vector>
+
 #include "Renderer.h"
 #define PI 3.14
 
@@ -9,7 +7,8 @@ Renderer::Renderer(GLfloat width, GLfloat height)
 { 
     GLuint VertexArrayID;
     screenRatio = width / height;
-    shader = loadShader();
+    shader = loadShader(objectVertexShader, objectfragmentShader);
+    //particleShader = loadShader(objectVertexShader, objectfragmentShader);
     makeCirCle();
 
     glGenVertexArrays(1, &VertexArrayID);
@@ -18,14 +17,12 @@ Renderer::Renderer(GLfloat width, GLfloat height)
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glViewport(0, 0, width, height);
     glFrontFace(GL_CCW);
-    glUseProgram(shader);
+    
 }
-
 Renderer::~Renderer()
 {
 }
-
-void Renderer::setupRenderer( GameObject& gameObject, shape Shape )
+void Renderer::setupObjectRenderer( GameObject& gameObject, shape Shape )
 { 
     GLuint ColorSize;
     GLuint VertexSize;
@@ -46,6 +43,7 @@ void Renderer::setupRenderer( GameObject& gameObject, shape Shape )
     default:
        break;
     }
+
     glGenBuffers(1, &gameObject.vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, gameObject.vertexBuffer);
     glBufferData(GL_ARRAY_BUFFER, gameObject.vertexPoseSize * sizeof(GLint), gameObject.vertexPosition, GL_STATIC_DRAW);
@@ -54,7 +52,10 @@ void Renderer::setupRenderer( GameObject& gameObject, shape Shape )
     glBindBuffer(GL_ARRAY_BUFFER, gameObject.colorBuffer);
     glBufferData(GL_ARRAY_BUFFER, gameObject.colorPoseSize * sizeof(GLint), gameObject.colorPosition, GL_STATIC_DRAW);
 }
-
+void Renderer::updateRenderer()
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
 void Renderer::makeCirCle()
 {
     //circle 만들어주기
@@ -101,37 +102,12 @@ void Renderer::makeCirCle()
    
 
 }
-unsigned int Renderer:: loadShader()
+unsigned int Renderer:: loadShader(const char* vertexShaderSource,const char* fragmentShaderSource)
 {
     GLint Result = GL_FALSE;
     int InfoLogLength;
 
-    const char* vertexShaderSource = "#version 300 es\n"
-        "layout (location = 0) in vec3 aPos;\n"
-        "layout (location = 1) in vec3 aColor;\n"
-        "uniform float aRatio;\n"
-        "uniform float aSizeX;\n"
-        "uniform float aSizeY;\n"
-        "uniform float aTransX;\n"
-        "uniform float aTransY;\n"
-        "out vec3 v_Color;\n"
-        "void main()\n"
-        "{\n"
-        " gl_Position = vec4(aPos.x * aSizeX + aTransX, aPos.y*aRatio* aSizeY + aTransY, aPos.z, 1.0f);\n"
-        " v_Color = aColor;\n"
-        "}\n";
-
-    const char* fragmentShaderSource = "#version 300 es\n"
-        "in vec3 v_Color;\n"
-        "out vec4 FragColor;\n"
-        "void main()\n"
-        "{\n"
-        " FragColor = vec4(v_Color.x,v_Color.y,v_Color.z, 1.0f);\n"
-        "}\n";
-
-    unsigned int vertexShader;
-
-    vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
     glCompileShader(vertexShader);
     glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &Result);
@@ -142,8 +118,8 @@ unsigned int Renderer:: loadShader()
         printf("%s\n", &VertexShaderErrorMessage[0]);
     }
 
-    unsigned int fragmentShader;
-    fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+   
+    unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
     glCompileShader(fragmentShader);
 
@@ -168,14 +144,9 @@ unsigned int Renderer:: loadShader()
 
     return shaderProgram;
 }
-
-void Renderer::updateRenderer()
-{
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-   
-}
 void Renderer::drawGameObject(GameObject& gameObject)
 { 
+    glUseProgram(shader);
     GLuint attribPosLoc = glGetAttribLocation(shader, "aPos");
     glEnableVertexAttribArray(attribPosLoc);
     glBindBuffer(GL_ARRAY_BUFFER, gameObject.vertexBuffer);
@@ -206,4 +177,44 @@ void Renderer::drawGameObject(GameObject& gameObject)
     glDrawArrays(GL_TRIANGLES, 0, gameObject.drawCount);
     glDisableVertexAttribArray(0);
 }
+void Renderer::drawParticle(GameObject& gameObject)
+{
+    glUseProgram(particleShader);
+    glGenBuffers(1, &gameObject.vertexBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, gameObject.vertexBuffer);
+    glBufferData(GL_ARRAY_BUFFER, gameObject.vertexPoseSize * sizeof(GLint), gameObject.vertexPosition, GL_STATIC_DRAW);
 
+    glGenBuffers(1, &gameObject.colorBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, gameObject.colorBuffer);
+    glBufferData(GL_ARRAY_BUFFER, gameObject.colorPoseSize * sizeof(GLint), gameObject.colorPosition, GL_STATIC_DRAW);
+
+    GLuint attribPosLoc = glGetAttribLocation(particleShader, "aPos");
+    glEnableVertexAttribArray(attribPosLoc);
+    glBindBuffer(GL_ARRAY_BUFFER, gameObject.vertexBuffer);
+    glVertexAttribPointer(attribPosLoc, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3, (GLvoid*)(0));
+
+    GLuint attribColorLoc = glGetAttribLocation(particleShader, "aColor");
+    glEnableVertexAttribArray(attribColorLoc);
+    glBindBuffer(GL_ARRAY_BUFFER, gameObject.colorBuffer);
+    glVertexAttribPointer(attribColorLoc, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3, (GLvoid*)(0));
+
+    GLuint uniformRatio = glGetUniformLocation(shader, "aRatio");
+    glUniform1f(uniformRatio, screenRatio);
+
+    if (gameObject.colorPosition != NULL)
+    {
+        GLuint uniformTransform = glGetUniformLocation(particleShader, "aTransX");
+        glUniform1f(uniformTransform, gameObject.Position.x);
+
+        GLuint uniformTransformY = glGetUniformLocation(particleShader, "aTransY");
+        glUniform1f(uniformTransformY, gameObject.Position.y);
+
+        GLuint uniformSizeX = glGetUniformLocation(particleShader, "aSizeX");
+        glUniform1f(uniformSizeX, gameObject.getScale().x);
+
+        GLuint uniformSizeY = glGetUniformLocation(particleShader, "aSizeY");
+        glUniform1f(uniformSizeY, gameObject.getScale().y);
+    }
+    glDrawArrays(GL_TRIANGLES, 0, gameObject.drawCount);
+    glDisableVertexAttribArray(0);
+}

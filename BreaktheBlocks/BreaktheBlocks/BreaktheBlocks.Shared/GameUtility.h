@@ -1,4 +1,16 @@
 #pragma once
+#ifdef __ANDROID__
+#include <GLES3/gl3.h>
+#elif __APPLE__
+#include <OpenGLES/ES3/gl.h>
+#endif
+#include <iostream>
+#include <math.h>
+#include <string>
+#include <stdlib.h>
+#include <vector>
+#include <stdio.h>
+#include <deque>
 struct vec3
 {
 	GLfloat x;
