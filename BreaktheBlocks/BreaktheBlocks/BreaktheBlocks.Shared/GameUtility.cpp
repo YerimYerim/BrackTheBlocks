@@ -12,6 +12,18 @@ vec3 Normalize(vec3& Direction)
 void transScreenToGL(GLfloat screenWidth, GLfloat screenHeight,
 	GLfloat inputX, GLfloat inputY, GLfloat* convertedX, GLfloat* convertedY)
 {
-	*convertedX = (GLfloat)((inputX - (GLfloat)screenWidth / 2.0f) * (GLfloat)(1.0f / (GLfloat)(screenWidth / 2.0f)));
-	*convertedY = -(GLfloat)((inputY - (GLfloat)screenHeight / 2.0f) * (GLfloat)(1.0f / (GLfloat)(screenHeight / 2.0f)));
+	*convertedX = (GLfloat)((inputX - (GLfloat)screenWidth * 0.5f) * (GLfloat)(1.0f / (GLfloat)(screenWidth * 0.5f)));
+	*convertedY = -(GLfloat)((inputY - (GLfloat)screenHeight * 0.5f) * (GLfloat)(1.0f / (GLfloat)(screenHeight * 0.5f)));
+}
+void transGameWorldToGL(GLfloat WorldWidth, GLfloat WorldHeight,GLfloat ScreenRatio,
+	GLfloat gameWorldX, GLfloat gameWorldY, GLfloat* GLposX, GLfloat* GLposY)
+{
+		*GLposX = (GLfloat)(gameWorldX) / ((GLfloat)WorldWidth * 0.5f);
+		*GLposY = (GLfloat)(gameWorldY) / ((GLfloat)WorldHeight * 0.5f) * (GLfloat)ScreenRatio;
+}
+void updateDeltaTime(GLfloat& deltatime, GLfloat& lastTime)
+{
+	GLfloat curTime = clock();
+	deltatime = (curTime - lastTime)/ 100.0f;
+	lastTime = curTime;
 }

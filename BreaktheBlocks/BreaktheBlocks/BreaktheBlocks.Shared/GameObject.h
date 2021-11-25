@@ -46,7 +46,8 @@ public:
 		GLint getHp();
 
 		GLboolean CheckCollider(GameObject& object);
-		void physicsUpdate(GLfloat Speed);
+		void addPosition(GLfloat x, GLfloat y);
+		void physicsUpdate(GLfloat Speed, GLfloat& deltatime);
 		void addForce(vec3& direction);
 		void changeDirection(CollisionDirection direction);
 };

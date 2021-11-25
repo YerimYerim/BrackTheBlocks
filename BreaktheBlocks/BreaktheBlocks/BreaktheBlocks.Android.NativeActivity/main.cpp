@@ -38,11 +38,6 @@ struct saved_state {
 */
 struct engine {
 	struct android_app* app;
-
-	ASensorManager* sensorManager;
-	const ASensor* accelerometerSensor;
-	ASensorEventQueue* sensorEventQueue;
-
 	int animating;
 	EGLDisplay display;
 	EGLSurface surface;
@@ -57,7 +52,7 @@ struct engine {
 */
 static int engine_init_display(struct engine* engine) {
 	// OpenGL ES 및 EGL 초기화
-
+	
 	/*
 	* 여기에서 원하는 구성의 특성을 지정합니다.
 	* 아래에서 화면 창과 호환되는 
@@ -75,7 +70,6 @@ static int engine_init_display(struct engine* engine) {
 	EGLConfig config;
 	EGLSurface surface;
 	EGLContext context;
-
 	EGLDisplay display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
 
 	eglInitialize(display, 0, 0);
@@ -196,7 +190,7 @@ static void engine_handle_cmd(struct android_app* app, int32_t cmd) {
 		// 창이 표시되어 준비를 마쳤습니다.
 		if (engine->app->window != NULL) {
 			engine_init_display(engine);
-			engine_draw_frame(engine);
+			//engine_draw_frame(engine);
 		}
 		break;
 	case APP_CMD_TERM_WINDOW:
@@ -204,25 +198,14 @@ static void engine_handle_cmd(struct android_app* app, int32_t cmd) {
 		engine_term_display(engine);
 		break;
 	case APP_CMD_GAINED_FOCUS:
+		engine->animating = 1;
 		// 앱에 포커스가 있으면 가속도계 모니터링을 시작합니다.
-		if (engine->accelerometerSensor != NULL) {
-			ASensorEventQueue_enableSensor(engine->sensorEventQueue,
-				engine->accelerometerSensor);
-			// 초당 60개의 이벤트를 가져오고자 합니다(마이크로초 단위).
-			ASensorEventQueue_setEventRate(engine->sensorEventQueue,
-				engine->accelerometerSensor, (1000L / 60) * 1000);
-		}
 		break;
 	case APP_CMD_LOST_FOCUS:
-		// 앱에서 포커스가 사라지면 가속도계 모니터링이 중지됩니다.
 		// 사용하지 않는 동안 배터리를 절약하기 위한 조치입니다.
-		if (engine->accelerometerSensor != NULL) {
-			ASensorEventQueue_disableSensor(engine->sensorEventQueue,
-				engine->accelerometerSensor);
-		}
 		// 애니메이션 효과도 중지됩니다.
 		engine->animating = 0;
-		engine_draw_frame(engine);
+		//engine_draw_frame(engine);
 		break;
 	}
 }
@@ -240,13 +223,6 @@ void android_main(struct android_app* state) {
 	state->onAppCmd = engine_handle_cmd;
 	state->onInputEvent = engine_handle_input;
 	engine.app = state;
-
-	// 가속도계 모니터링을 준비합니다.
-	engine.sensorManager = ASensorManager_getInstance();
-	engine.accelerometerSensor = ASensorManager_getDefaultSensor(engine.sensorManager,
-		ASENSOR_TYPE_ACCELEROMETER);
-	engine.sensorEventQueue = ASensorManager_createEventQueue(engine.sensorManager,
-		state->looper, LOOPER_ID_USER, NULL, NULL);
 
 	if (state->savedState != NULL) {
 		// 이전에 저장된 상태로 시작되며, 이 지점에서 복원됩니다.
@@ -274,19 +250,6 @@ void android_main(struct android_app* state) {
 				source->process(state, source);
 			}
 
-			// 센서에 데이터가 있으면 바로 처리됩니다.
-			if (ident == LOOPER_ID_USER) {
-				if (engine.accelerometerSensor != NULL) {
-					ASensorEvent event;
-					while (ASensorEventQueue_getEvents(engine.sensorEventQueue,
-						&event, 1) > 0) {
-						LOGI("accelerometer: x=%f y=%f z=%f",
-							event.acceleration.x, event.acceleration.y,
-							event.acceleration.z);
-					}
-				}
-			}
-
 			// 종료 중인지 확인합니다.
 			if (state->destroyRequested != 0) {
 				engine_term_display(&engine);
@@ -295,13 +258,6 @@ void android_main(struct android_app* state) {
 		}
 
 		if (engine.animating) {
-			// 이벤트를 종료한 후 다음 애니메이션 프레임을 그립니다.
-
-			//if (engine.state.angle > 1) {
-			//	engine.state.angle = 0;
-			//}
-			// 그리기는 화면 업데이트 속도의 제한을 받으므로
-			// 여기에서는 타이밍을 계산할 필요가 없습니다.
 			engine_draw_frame(&engine);
 		}
 	}

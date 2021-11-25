@@ -10,7 +10,6 @@ private:
 	GLfloat CurTime = 0.0f;
 
 	vec3 transfrom = { 0.0f,0.0f, 1.0f};
-
 	GLfloat* vertexPosition;
 	GLfloat* colorPosition;
 

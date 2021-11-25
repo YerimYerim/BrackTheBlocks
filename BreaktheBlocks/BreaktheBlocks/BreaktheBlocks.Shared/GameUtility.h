@@ -11,6 +11,8 @@
 #include <vector>
 #include <stdio.h>
 #include <deque>
+#include <Time.h>
+
 struct vec3
 {
 	GLfloat x;
@@ -21,3 +23,7 @@ struct vec3
 vec3 Normalize(vec3& Direction);
 void transScreenToGL(GLfloat screenWidth, GLfloat screenHeight,
 	GLfloat inputX, GLfloat inputY, GLfloat* convertedX, GLfloat* convertedY);
+
+void updateDeltaTime(GLfloat& deltatime, GLfloat& lastTime);
+void transGameWorldToGL(GLfloat WorldWidth, GLfloat WorldHeight, GLfloat ScreenRatio,
+	GLfloat gameWorldX, GLfloat gameWorldY, GLfloat* GLposX, GLfloat* GLposY);

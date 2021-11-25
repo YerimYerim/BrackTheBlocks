@@ -65,12 +65,12 @@ void GameObject::setScale(GLfloat x, GLfloat y)
 GLboolean GameObject::CheckCollider(GameObject& Circle)
 {
 	vec3 LeftTop = {0,0,0};
-	LeftTop.x = Position.x - getScale().x;
-	LeftTop.y = Position.y + getScale().y;
+	LeftTop.x = Position.x - getScale().x * 0.5f;
+	LeftTop.y = Position.y + getScale().y * 0.5f;
 
 	vec3 RightBottom = { 0,0,0 };
-	RightBottom.x = Position.x + getScale().x;
-	RightBottom.y = Position.y - getScale().y;
+	RightBottom.x = Position.x + getScale().x * 0.5f;
+	RightBottom.y = Position.y - getScale().y * 0.5f;
 
 	GLfloat circleScale = Circle.getScale().x * 0.5f;
 	
@@ -83,13 +83,13 @@ GLboolean GameObject::CheckCollider(GameObject& Circle)
 			{
 				// 왼쪽 오른쪽에서 충돌
 				Circle.changeDirection(VERTICAL);
-				///isActive = false;
+				isActive = false;
 				return true;
 			}
 			else if (Circle.Position.x > LeftTop.x && Circle.Position.x < RightBottom.x) //위or 아래에서 충돌된것
 			{
 				Circle.changeDirection(HORIZONTAL);
-				//isActive = false;
+				isActive = false;
 				return true;
 			}
 			else if(powf(Position.x - Circle.Position.x,2) + powf(Position.y - Circle.Position.y,2) 
@@ -97,7 +97,7 @@ GLboolean GameObject::CheckCollider(GameObject& Circle)
 			{
 				Circle.changeDirection(VERTICAL);
 				Circle.changeDirection(HORIZONTAL);
-				//isActive = false;
+				isActive = false;
 				return true;
 			}
 		}
@@ -111,10 +111,10 @@ void GameObject::addForce(vec3& direction)
 	moveDirection.y = direction.y;
 }
 
-void GameObject::physicsUpdate(GLfloat Speed)
+void GameObject::physicsUpdate(GLfloat Speed, GLfloat& deltatime)
 {
-	Position.x += moveDirection.x * Speed;
-	Position.y += moveDirection.y * Speed;
+	Position.x += moveDirection.x * Speed *( 1.0f/deltatime);
+	Position.y += moveDirection.y * Speed *( 1.0f/deltatime);
 }
 void GameObject::setActive(GLboolean isactive)
 {
@@ -144,5 +144,12 @@ GLboolean GameObject::getActive()
 GLboolean GameObject::getMoveActive()
 {
 	return isMove;
+}
+
+void GameObject::addPosition(GLfloat x, GLfloat y)
+{
+	Position.x += x;
+	Position.y += y;
+
 }
 

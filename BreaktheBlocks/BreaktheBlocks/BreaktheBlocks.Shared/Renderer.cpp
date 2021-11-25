@@ -162,17 +162,21 @@ void Renderer::drawGameObject(GameObject& gameObject)
 
     if (gameObject.colorPosition != NULL)
     {
+        GLfloat glX;
+        GLfloat glY;
+        transGameWorldToGL(300.0f,300.0f, screenRatio, gameObject.Position.x, gameObject.Position.y, &glX, &glY);
+
         GLuint uniformTransform = glGetUniformLocation(shader, "aTransX");
-        glUniform1f(uniformTransform, gameObject.Position.x);
+        glUniform1f(uniformTransform, glX);
 
         GLuint uniformTransformY = glGetUniformLocation(shader, "aTransY");
-        glUniform1f(uniformTransformY, gameObject.Position.y);
+        glUniform1f(uniformTransformY, glY);
 
         GLuint uniformSizeX = glGetUniformLocation(shader, "aSizeX");
-        glUniform1f(uniformSizeX, gameObject.getScale().x);
+        glUniform1f(uniformSizeX, gameObject.getScale().x / 300.0f);
         
         GLuint uniformSizeY = glGetUniformLocation(shader, "aSizeY");
-        glUniform1f(uniformSizeY, gameObject.getScale().y);
+        glUniform1f(uniformSizeY, gameObject.getScale().y / 300.0f);
     }
     glDrawArrays(GL_TRIANGLES, 0, gameObject.drawCount);
     glDisableVertexAttribArray(0);

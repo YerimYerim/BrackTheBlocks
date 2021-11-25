@@ -31,9 +31,14 @@ class SceneManager
 		
 		GLuint roundCount = 1;
 		const GLuint screenWidth;
-		const GLuint screenHeight;
+		const GLuint screenHeight;		
+		
+		const GLfloat GameWorldWidth;
+		const GLfloat GameWorldHeight;
 		std::deque<GLuint> Number;
-		GLuint GenBlockProbability = 10;
+		GLuint GenBlockProbability = 6;
+		GLfloat lastTime = clock();
+		GLfloat deltaTime = 0.0f;
 
 	public:
 		SceneManager(GLuint width, GLuint height);
@@ -42,8 +47,7 @@ class SceneManager
 		void updateScene();
 		void input(int32_t actionType, GLfloat x, GLfloat y);
 		void initBlockLine();
-		void setBlockPos(GLuint nowCol, GLuint nowRow, const GLuint& width, const GLuint& height,
-			GLuint afterCol, GLuint afterRow);
+		void setBlockPos(GLuint nowCol, GLuint nowRow, GLfloat afterCol, GLfloat afterRow);
 		void checkCollision();
 };
 
