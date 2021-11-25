@@ -15,17 +15,8 @@ void GameObject::changeDirection(CollisionDirection direction)
 	}
 }
 
-void GameObject::setPosition(GLfloat deltaX = NULL, GLfloat deltaY = NULL)
+void GameObject::setPosition(GLfloat deltaX , GLfloat deltaY)
 {
-	if (deltaX == NULL)
-	{
-		deltaX = Position.x;
-	}
-	if (deltaY == NULL)
-	{
-		deltaY = Position.y;
-	}
-	
 	Position.x = deltaX;
 	Position.y = deltaY;
 }

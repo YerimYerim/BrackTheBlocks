@@ -3,8 +3,6 @@
 SceneManager::SceneManager(GLuint width, GLuint height):screenWidth(width),screenHeight(height),
 GameWorldWidth(300.0f) , GameWorldHeight(300.0f)
 {
-	GLfloat tempx;
-	GLfloat tempy;
 	renderer = new Renderer(screenWidth, screenHeight);
 	inputManager = new InputManager(screenWidth, screenHeight);
 	#pragma region setBlocks

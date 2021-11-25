@@ -7,23 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F384BE4274FE9E500340FE4 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F384BE3274FE9E500340FE4 /* Storyboard.storyboard */; };
 		D732ADFC1AD8974300D69854 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D732ADFB1AD8974300D69854 /* main.m */; };
 		D732AE0B1AD8974300D69854 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D732AE0A1AD8974300D69854 /* Images.xcassets */; };
 		D732AE2A1AD89BDB00D69854 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D732AE241AD89BDB00D69854 /* AppDelegate.m */; };
-		D732AE2B1AD89BDB00D69854 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = D732AE251AD89BDB00D69854 /* Base */; };
 		D732AE2C1AD89BDB00D69854 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D732AE271AD89BDB00D69854 /* GameViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8F384BE3274FE9E500340FE4 /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		D732ADF61AD8974300D69854 /* BreaktheBlocks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BreaktheBlocks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D732ADFB1AD8974300D69854 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D732AE0A1AD8974300D69854 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D732AE231AD89BDB00D69854 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D732AE241AD89BDB00D69854 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		D732AE251AD89BDB00D69854 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D732AE261AD89BDB00D69854 /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		D732AE271AD89BDB00D69854 /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
-		D732AE291AD89BDB00D69854 /* vcreference.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = ../vcreference.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,11 +57,10 @@
 			children = (
 				D732AE231AD89BDB00D69854 /* AppDelegate.h */,
 				D732AE241AD89BDB00D69854 /* AppDelegate.m */,
-				D732AE251AD89BDB00D69854 /* Base */,
 				D732AE261AD89BDB00D69854 /* GameViewController.h */,
 				D732AE271AD89BDB00D69854 /* GameViewController.m */,
-				D732AE291AD89BDB00D69854 /* vcreference.xcconfig */,
 				D732AE0A1AD8974300D69854 /* Images.xcassets */,
+				8F384BE3274FE9E500340FE4 /* Storyboard.storyboard */,
 				D732ADF91AD8974300D69854 /* Supporting Files */,
 			);
 			path = BreaktheBlocks.iOS;
@@ -108,18 +106,19 @@
 						CreatedOnToolsVersion = 6.1;
 					};
 				};
-                VC_Properties = {
-                    VC_ProjectGuid = 324a29d7-7c01-47cf-b492-e2c63e77f8dc;
-                    VC_ProjectReferences = {
-                        1c29438b-b9e1-426c-9428-ed7afc5d8dff="..\\BreaktheBlocks.iOS.StaticLibrary\\BreaktheBlocks.iOS.StaticLibrary.vcxproj";
-                    };
-                };
+				VC_Properties = {
+					VC_ProjectGuid = "324a29d7-7c01-47cf-b492-e2c63e77f8dc";
+					VC_ProjectReferences = {
+						"1c29438b-b9e1-426c-9428-ed7afc5d8dff" = "..\\BreaktheBlocks.iOS.StaticLibrary\\BreaktheBlocks.iOS.StaticLibrary.vcxproj";
+					};
+				};
 			};
-			buildConfigurationList = D732ADF11AD8974300D69854 /* Build configuration list for PBXProject "BreaktheBlocks" */;
+			buildConfigurationList = D732ADF11AD8974300D69854 /* Build configuration list for PBXProject "BreaktheBlocks.iOS.Application" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -130,7 +129,6 @@
 			targets = (
 				D732ADF51AD8974300D69854 /* BreaktheBlocks */,
 			);
-	
 		};
 /* End PBXProject section */
 
@@ -139,8 +137,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D732AE2B1AD89BDB00D69854 /* Base in Resources */,
 				D732AE0B1AD8974300D69854 /* Images.xcassets in Resources */,
+				8F384BE4274FE9E500340FE4 /* Storyboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,9 +149,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D732AE2A1AD89BDB00D69854 /* AppDelegate.m in Sources */,
-				D732AE2C1AD89BDB00D69854 /* GameViewController.m in Sources */,
 				D732ADFC1AD8974300D69854 /* main.m in Sources */,
+				D732AE2C1AD89BDB00D69854 /* GameViewController.m in Sources */,
+				D732AE2A1AD89BDB00D69854 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -162,7 +160,6 @@
 /* Begin XCBuildConfiguration section */
 		D732AE1B1AD8974300D69854 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D732AE291AD89BDB00D69854 /* vcreference.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -205,7 +202,6 @@
 		};
 		D732AE1C1AD8974300D69854 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D732AE291AD89BDB00D69854 /* vcreference.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -263,7 +259,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D732ADF11AD8974300D69854 /* Build configuration list for PBXProject "BreaktheBlocks" */ = {
+		D732ADF11AD8974300D69854 /* Build configuration list for PBXProject "BreaktheBlocks.iOS.Application" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D732AE1B1AD8974300D69854 /* Debug */,
