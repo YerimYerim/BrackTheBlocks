@@ -11,8 +11,7 @@
 #include <vector>
 #include <stdio.h>
 #include <deque>
-#include <Time.h>
-
+#include <chrono>
 struct vec3
 {
 	GLfloat x;
@@ -24,6 +23,6 @@ vec3 Normalize(vec3& Direction);
 void transScreenToGL(GLfloat screenWidth, GLfloat screenHeight,
 	GLfloat inputX, GLfloat inputY, GLfloat* convertedX, GLfloat* convertedY);
 
-void updateDeltaTime(GLfloat& deltatime, GLfloat& lastTime);
+void updateDeltaTime(float& deltatime, std::chrono::system_clock::time_point& lastTime);
 void transGameWorldToGL(GLfloat WorldWidth, GLfloat WorldHeight, GLfloat ScreenRatio,
 	GLfloat gameWorldX, GLfloat gameWorldY, GLfloat* GLposX, GLfloat* GLposY);

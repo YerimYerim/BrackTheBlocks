@@ -21,9 +21,9 @@ void transGameWorldToGL(GLfloat WorldWidth, GLfloat WorldHeight,GLfloat ScreenRa
 		*GLposX = (GLfloat)(gameWorldX) / ((GLfloat)WorldWidth * 0.5f);
 		*GLposY = (GLfloat)(gameWorldY) / ((GLfloat)WorldHeight * 0.5f) * (GLfloat)ScreenRatio;
 }
-void updateDeltaTime(GLfloat& deltatime, GLfloat& lastTime)
+void updateDeltaTime(float& deltatime, std::chrono::system_clock::time_point& lastTime)
 {
-	GLfloat curTime = clock();
-	deltatime = (curTime - lastTime)/ 100.0f;
+	std::chrono::system_clock::time_point curTime = std::chrono::system_clock::now();
+	deltatime = (curTime - lastTime).count() * 0.00001f;
 	lastTime = curTime;
 }

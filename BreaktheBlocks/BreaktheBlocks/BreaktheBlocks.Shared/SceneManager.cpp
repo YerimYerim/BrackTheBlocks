@@ -1,5 +1,6 @@
 #include "SceneManager.h"
 
+
 SceneManager::SceneManager(GLuint width, GLuint height):screenWidth(width),screenHeight(height),
 GameWorldWidth(300.0f) , GameWorldHeight(300.0f)
 {
@@ -16,7 +17,6 @@ GameWorldWidth(300.0f) , GameWorldHeight(300.0f)
 			Blocks[i][j].setActive(false);
 		}
 		Number.push_back(i);
-
 	}
 	#pragma endregion	
 	#pragma region setWall
@@ -62,8 +62,8 @@ SceneManager::~SceneManager()
 
 void SceneManager::updateScene()
 {
-	updateDeltaTime(deltaTime,lastTime);
 
+	updateDeltaTime(deltaTime, lastTime);
 	renderer->updateRenderer();
 
 	#pragma region BlockUpdate
@@ -83,7 +83,7 @@ void SceneManager::updateScene()
 		if (Balls[i].getActive())
 			renderer->drawGameObject(Balls[i]);
 		if (Balls[i].getMoveActive())
-			Balls[i].physicsUpdate(10.0f, deltaTime);
+			Balls[i].physicsUpdate(15.0f,  deltaTime);
 	}
 	#pragma endregion
 

@@ -10,7 +10,8 @@ Renderer::Renderer(GLfloat width, GLfloat height)
     shader = loadShader(objectVertexShader, objectfragmentShader);
     //particleShader = loadShader(objectVertexShader, objectfragmentShader);
     makeCirCle();
-
+    screenWidth = width;
+    screenHeight = height;
     glGenVertexArrays(1, &VertexArrayID);
     glBindVertexArray(VertexArrayID);
 
@@ -112,7 +113,7 @@ unsigned int Renderer:: loadShader(const char* vertexShaderSource,const char* fr
     glCompileShader(vertexShader);
     glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &Result);
     glGetShaderiv(vertexShader, GL_INFO_LOG_LENGTH, &InfoLogLength);
-    if (InfoLogLength > 0) {
+    if (InfoLogLength > 0) {    
         std::vector<char> VertexShaderErrorMessage(InfoLogLength + 1);
         glGetShaderInfoLog(vertexShader, InfoLogLength, NULL, &VertexShaderErrorMessage[0]);
         printf("%s\n", &VertexShaderErrorMessage[0]);
@@ -176,7 +177,13 @@ void Renderer::drawGameObject(GameObject& gameObject)
         glUniform1f(uniformSizeX, gameObject.getScale().x / 300.0f);
         
         GLuint uniformSizeY = glGetUniformLocation(shader, "aSizeY");
-        glUniform1f(uniformSizeY, gameObject.getScale().y / 300.0f);
+        glUniform1f(uniformSizeY, gameObject.getScale().y / 300.0f);    
+
+        GLuint uniformScreen = glGetUniformLocation(shader, "u_resolution");
+        glUniform2f(uniformScreen, screenWidth, screenHeight);
+
+        GLuint uinformisDot = glGetUniformLocation(shader, "u_isDot");
+        glUniform1i(uinformisDot, gameObject.isDot);
     }
     glDrawArrays(GL_TRIANGLES, 0, gameObject.drawCount);
     glDisableVertexAttribArray(0);

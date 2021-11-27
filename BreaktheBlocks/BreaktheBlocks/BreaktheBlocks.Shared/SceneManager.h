@@ -37,8 +37,10 @@ class SceneManager
 		const GLfloat GameWorldHeight;
 		std::deque<GLuint> Number;
 		GLuint GenBlockProbability = 6;
-		GLfloat lastTime = clock();
-		GLfloat deltaTime = 0.0f;
+
+
+		std::chrono::system_clock::time_point lastTime = std::chrono::system_clock::now();
+		float deltaTime;
 
 	public:
 		SceneManager(GLuint width, GLuint height);

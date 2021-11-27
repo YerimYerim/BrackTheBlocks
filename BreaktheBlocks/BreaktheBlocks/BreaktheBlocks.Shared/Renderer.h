@@ -14,14 +14,15 @@ private:
 	GLuint shader;
 	GLuint particleShader;
 	GLfloat screenRatio;
-
+	GLfloat screenWidth;
+	GLfloat screenHeight;
 	GLfloat circleVertexBuffer[12 * 3 * 3];
 	GLfloat circleColor[12 * 3 * 3 + 3];
 
 	GLfloat rectangleVertexBuffer[18] = {
-	   -1.0f, -1.0f, 0.0f,
 	   1.0f, -1.0f, 0.0f,
 	   1.0f,  1.0f, 0.0f,
+	   -1.0f, -1.0f, 0.0f,
 
 	   1.0f,  1.0f, 0.0f,
 	   -1.0f,  1.0f, 0.0f,
@@ -45,25 +46,40 @@ private:
 		"uniform float aSizeY;\n"
 		"uniform float aTransX;\n"
 		"uniform float aTransY;\n"
-		//"const vec3 aGravity = vec3(0,-0.1,0);\n"
-		//"const vec3 aEmitTime= vec3(0,-0.1,0);\n"
-		//"const vec3 = vec3(0,-0.1,0);\n"
+		"flat out vec3 startPos;\n"		
 		"out vec3 v_Color;\n"
+		"out vec3 vertPos;\n"
 		"void main()\n"
 		"{\n"
-		" vec4 aSize = vec4(aSizeX , aSizeY * aRatio, 1.0f,1.0f);\n"
-		" vec4 aTrasnform = vec4(aTransX , aTransY, 0.0f , 0.0f);\n"
-		" vec4 aPosition = vec4(aPos.x , aPos.y, 1.0f , 1.0f);\n"
-		" gl_Position = aPosition * aSize + aTrasnform;\n"
+		" vec4 aSize = vec4(aSizeX , aSizeY * aRatio, 1.0f ,1.0f);\n"
+		" vec4 aTrasnform = vec4(aTransX , aTransY, 0f, 0.0f);\n"
+		" vec4 aPosition = vec4(aPos.x , aPos.y, 1.0f, 1.0f );\n"
+		" vec4 pos = aPosition * aSize + aTrasnform;\n"
+		" gl_Position = pos;\n"
+		" vertPos = pos.xyz;\n"
+		" startPos = pos.xyz;\n"
 		" v_Color = aColor;\n"
 		"}\n";                            
 
 	const char* objectfragmentShader = "#version 300 es\n"
 		"in vec3 v_Color;\n"
 		"out vec4 FragColor;\n"
+		"flat in vec3 startPos;\n"
+		"in vec3 vertPos;\n"
+		"uniform vec2  u_resolution;\n"
+		"float u_dashSize = 0.01f;\n"
+		"float u_gapSize = 0.01f;\n"
+		"uniform int u_isDot;"
 		"void main()\n"
 		"{\n"
-		" FragColor = vec4(v_Color.x,v_Color.y,v_Color.z, 1.0f);\n"
+		"	if(u_isDot != 0)\n"
+		"	{\n"
+		"		vec2  dir = (vertPos.xy - startPos.xy) * 0.5f ;\n"
+		"		float dist = length(dir);\n"
+		"		if (fract(dist / (u_dashSize + u_gapSize)) > u_dashSize / (u_dashSize + u_gapSize))\n"
+		"			discard; \n"
+		"	}\n"
+		"	FragColor = vec4(v_Color.x,v_Color.y,v_Color.z, 1.0f);\n"
 		"}\n";
 
 	//const char* particleVertexShader = "#version 300 es\n"

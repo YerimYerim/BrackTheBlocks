@@ -256,9 +256,9 @@ void android_main(struct android_app* state) {
 				return;
 			}
 		}
-
 		if (engine.animating) {
 			engine_draw_frame(&engine);
 		}
+
 	}
 }

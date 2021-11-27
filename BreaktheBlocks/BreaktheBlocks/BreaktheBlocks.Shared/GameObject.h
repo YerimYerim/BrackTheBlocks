@@ -26,6 +26,7 @@ public:
 		GLint drawCount;
 		GLuint vertexBuffer;
 		GLuint colorBuffer;
+		GLboolean isDot = false;
 
 		GameObject();	
 		GameObject(const GLfloat* vertexPos, const GLfloat* colorPos, GLint vertexSize, GLint colorSize);
