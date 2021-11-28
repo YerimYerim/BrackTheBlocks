@@ -26,3 +26,5 @@ void transScreenToGL(GLfloat screenWidth, GLfloat screenHeight,
 void updateDeltaTime(float& deltatime, std::chrono::system_clock::time_point& lastTime);
 void transGameWorldToGL(GLfloat WorldWidth, GLfloat WorldHeight, GLfloat ScreenRatio,
 	GLfloat gameWorldX, GLfloat gameWorldY, GLfloat* GLposX, GLfloat* GLposY);
+
+void SetTimer(float starttime, float endtime, float curtime);
