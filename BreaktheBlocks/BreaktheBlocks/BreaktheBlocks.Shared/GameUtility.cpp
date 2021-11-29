@@ -21,22 +21,10 @@ void transGameWorldToGL(GLfloat WorldWidth, GLfloat WorldHeight,GLfloat ScreenRa
 		*GLposX = (GLfloat)(gameWorldX) / ((GLfloat)WorldWidth * 0.5f);
 		*GLposY = (GLfloat)(gameWorldY) / ((GLfloat)WorldHeight * 0.5f) * (GLfloat)ScreenRatio;
 }
-GLboolean SetTimer(float StartTime, int durationSec, int endSecond)
-{
-	int Sec = 0;
-	std::chrono::system_clock::time_point nowTime = std::chrono::system_clock::now();
-	std::chrono::system_clock::time_point endTime = std::chrono::system_clock::now();
-	std::chrono::seconds sec = std::chrono::duration_cast<std::chrono::seconds>(endTime - nowTime);
-	if (durationSec < endSecond)
-	{
-		durationSec++;
-		return false;
-	}
-	return true;
-}
+
 void updateDeltaTime(float& deltatime, std::chrono::system_clock::time_point& lastTime)
 {
 	std::chrono::system_clock::time_point curTime = std::chrono::system_clock::now();
-	deltatime = (curTime - lastTime).count() * 0.00001f;
+	deltatime = 0.16f;//(curTime - lastTime).count()* 0.00001f;
 	lastTime = curTime;
 }

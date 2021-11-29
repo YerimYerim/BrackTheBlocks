@@ -69,7 +69,7 @@ void InputManager::inputTouchOff(GameObject& gameobject)
 	else if (isShootReady == false)
 	{
 	}
-	inputBoolReset();
+
 }
 
 void InputManager::inputBoolReset()

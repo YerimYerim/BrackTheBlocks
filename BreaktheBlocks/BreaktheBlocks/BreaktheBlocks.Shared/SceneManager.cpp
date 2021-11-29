@@ -52,7 +52,7 @@ GameWorldWidth(300.0f) , GameWorldHeight(300.0f)
 	Balls[0].setActive(true);
 	#pragma endregion
 
-
+	renderFunc = std::bind(&SceneManager::setBallActiveTrue, this);
 	initBlockLine();
 }
 
@@ -81,9 +81,13 @@ void SceneManager::updateScene()
 	for (int i = 0; i < MAXBALLCOUNT; ++i)
 	{
 		if (Balls[i].getActive())
+		{
 			renderer->drawGameObject(Balls[i]);
-		if (Balls[i].getMoveActive())
-			Balls[i].physicsUpdate(15.0f,  deltaTime);
+			if (Balls[i].getMoveActive())
+			{
+				Balls[i].physicsUpdate(15.0f, deltaTime);
+			}
+		}
 	}
 	#pragma endregion
 
@@ -93,20 +97,37 @@ void SceneManager::updateScene()
 		renderer->drawGameObject(Walls[i]);
 	}
 	#pragma endregion
-	checkCollision();
-//	initBlockLine();
+
+	if(stageState == SHOOT && Balls[nowBallShootingCount].getMoveActive() == true&& nowBallShootingCount< roundCount)
+		Timer(deltaTime, durationTime, 1, renderFunc);
+
+	if(stageState != END)
+		checkCollision();
+
+	if (stageState == END)
+	{
+		nowBallShootingCount = 1;
+	}
 }
-
-
+void SceneManager::setBallActiveTrue()
+{
+	Balls[nowBallShootingCount].setActive(true);
+	Balls[nowBallShootingCount].setMoveActive(true);
+	durationTime = 0;
+	++nowBallShootingCount;
+}
 void SceneManager::input(int32_t actionType, GLfloat x, GLfloat y)
 {
 	#ifdef __ANDROID__
-	if (stageState == WAIT)
+	if (stageState == END)
 	{
 		if (actionType == AKEY_EVENT_ACTION_UP) // 터치 off
 		{
-			inputManager->inputTouchOff(Balls[0]);
-			roundCount += 1;
+			for (int i = 0; i < roundCount; ++i)
+			{
+				inputManager->inputTouchOff(Balls[i]);
+			}
+			inputManager->inputBoolReset();
 			stageState = SHOOT;
 		}
 		else if (actionType == AKEY_EVENT_ACTION_DOWN)// 첫 터치
@@ -117,6 +138,7 @@ void SceneManager::input(int32_t actionType, GLfloat x, GLfloat y)
 		{
 			inputManager->inputTouchOn(x, y);
 		}
+
 	}
 	#elif __APPLE__
 
@@ -166,32 +188,78 @@ void SceneManager::setBlockPos(GLuint nowCol, GLuint nowRow, GLfloat afterCol, G
 
 void SceneManager::checkCollision()
 {
-	if (stageState == SHOOT)
+	int moveFalseCount = 0;
+	for (int ballcnt = 0; ballcnt < roundCount; ++ballcnt)
 	{
-		#pragma region BlockCheckCollider
-		for (int i = 0; i < MAXBLOCKCOLCOUNT; ++i)
+		if (Balls[ballcnt].getActive())
 		{
-			for (int j = 0; j < MAXBLOCKROWCOUNT; ++j)
+			#pragma region BlockCheckCollider
+			for (int i = 0; i < MAXBLOCKCOLCOUNT; ++i)
 			{
-				if (Blocks[i][j].getActive())
+				for (int j = 0; j < MAXBLOCKROWCOUNT; ++j)
 				{
-					Blocks[i][j].CheckCollider(Balls[0]);
+					if (Blocks[i][j].getActive())
+					{
+						Blocks[i][j].CheckCollider(Balls[ballcnt]);
+					}
 				}
 			}
-		}
-		#pragma endregion
+			#pragma endregion
 
-		#pragma region WallCheckCollider
-		for (int i = 0; i < MAXWALLCOUNT; ++i)
-		{
-			if (Walls[i].CheckCollider(Balls[0]) && i == 0 && stageState == SHOOT)
+			#pragma region WallCheckCollider
+			for (int i = 0; i < MAXWALLCOUNT; ++i)
 			{
-				initBlockLine();
-				stageState = WAIT; // 임시로 Wait --> 나중에 모든 공이 아래로 떨어질때까지 end 상태로 둘것
-				Balls[0].setPosition(Balls[0].Position.x, -150.0f + Balls[0].getScale().y * 0.5f + Walls[BOTTOM].getScale().y * 0.5f);
-				Balls[0].setMoveActive(false);
+				if (Walls[i].CheckCollider(Balls[ballcnt]))
+				{
+					if (i == BOTTOM)
+					{
+
+						Balls[ballcnt].setPosition(Balls[ballcnt].Position.x, -150.0f + Balls[ballcnt].getScale().y * 0.5f + Walls[BOTTOM].getScale().y * 0.5f);
+						Balls[ballcnt].setMoveActive(false);
+						
+						stageState = WAIT; // 임시로 Wait --> 나중에 모든 공이 아래로 떨어지면 end 상태로 둘것
+						if (firstBottomCollisionNum == -1)
+						{
+							firstBottomCollisionNum = ballcnt;
+							Balls[ballcnt].setActive(true);
+						}
+						else
+						{
+							Balls[ballcnt].setPosition(Balls[firstBottomCollisionNum].Position.x , Balls[firstBottomCollisionNum].Position.y);
+							Balls[ballcnt].setActive(false);
+						}
+					}
+				}
 			}
+			#pragma endregion
 		}
-		#pragma endregion
+		if (Balls[ballcnt].getMoveActive() == false)
+		{
+			moveFalseCount++;
+		}
+		if (moveFalseCount == roundCount)
+		{
+			stageState = END;
+			roundCount += 1;
+			initBlockLine();
+			//모든 공들의 위치를 firstBottomCollisionNum번째의 공과 같게 해줘야함
+			moveFalseCount = 0;
+			Balls[ballcnt+1].setPosition(Balls[firstBottomCollisionNum].Position.x, Balls[firstBottomCollisionNum].Position.y);
+			firstBottomCollisionNum = -1;
+		}
+	}
+
+}
+
+void SceneManager::Timer(float& deltatime, GLfloat& durationSec, int endSecond,const std::function<void()>& renderFunc)
+{
+	if (durationSec <= endSecond)
+	{
+		durationSec += deltatime;
+	}
+	else
+	{
+		durationSec = 0;
+		renderFunc();
 	}
 }
