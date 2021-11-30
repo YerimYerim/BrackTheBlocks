@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <deque>
 #include <chrono>
+#include <algorithm>
 struct vec3
 {
 	GLfloat x;

@@ -35,14 +35,14 @@ class SceneManager
 		
 		const GLfloat GameWorldWidth;
 		const GLfloat GameWorldHeight;
-		std::deque<GLuint> Number;
+		std::deque<GLuint> BlockLineArr;
 		GLuint GenBlockProbability = 6;
 
 		std::chrono::system_clock::time_point lastTime = std::chrono::system_clock::now();
 		GLfloat deltaTime;
 		GLfloat durationTime = 0;
 		GLint nowBallShootingCount = 0;
-		int firstBottomCollisionNum = -1;
+		int firtFallBallNum = -1;
 		std::function<void()> renderFunc;
 	public:
 		SceneManager(GLuint width, GLuint height);

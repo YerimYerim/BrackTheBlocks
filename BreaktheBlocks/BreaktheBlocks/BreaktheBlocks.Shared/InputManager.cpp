@@ -58,18 +58,19 @@ void InputManager::inputTouchOn(GLfloat inputX, GLfloat inputY)
 		direction = Normalize(direction);
 	}
 }
-void InputManager::inputTouchOff(GameObject& gameobject)
+GLboolean InputManager::inputTouchOff(GameObject& gameobject)
 {
 	if (isShootReady == true)
 	{
 		// น฿ป็!
 		gameobject.addForce(direction);
 		gameobject.setMoveActive(true);
+		return true;
 	}
 	else if (isShootReady == false)
 	{
 	}
-
+	return false;
 }
 
 void InputManager::inputBoolReset()

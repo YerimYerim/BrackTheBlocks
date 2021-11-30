@@ -6,9 +6,8 @@ enum CollisionDirection
 };
 class GameObject
 {
-	private:
+private:
 		vec3 Scale = { 1,1,1 };
-		vec3 Color = {0,0,0};
 		vec3 moveDirection = { 0,0,0 };
 
 		GLboolean isActive = false;
@@ -30,6 +29,7 @@ public:
 
 		GameObject();	
 		GameObject(const GLfloat* vertexPos, const GLfloat* colorPos, GLint vertexSize, GLint colorSize);
+		GameObject(const GLfloat* vertexPos, GLint vertexSize, GLint colorSize, GLfloat R, GLfloat G, GLfloat B);
 		~GameObject();
 
 		void setScale(GLfloat x, GLfloat y);
@@ -51,5 +51,6 @@ public:
 		void physicsUpdate(GLfloat Speed, GLfloat& deltatime);
 		void addForce(vec3& direction);
 		void changeDirection(CollisionDirection direction);
+		void setColor(GLfloat R, GLfloat G, GLfloat B);
 };
 

@@ -14,15 +14,17 @@ void GameObject::changeDirection(CollisionDirection direction)
 		break;
 	}
 }
-
-void GameObject::setPosition(GLfloat deltaX , GLfloat deltaY)
+GameObject::GameObject(const GLfloat* vertexPos, GLint vertexSize, GLint colorSize, GLfloat R, GLfloat G, GLfloat B)
 {
-	Position.x = deltaX;
-	Position.y = deltaY;
-}
+	Position = { 0.0f,0.0f,0.0f };
+	vertexPoseSize = vertexSize / sizeof(GLint);
+	colorPoseSize = colorSize / sizeof(GLint);
 
-GameObject::GameObject()
-{
+	vertexPosition = new GLfloat[vertexPoseSize];
+	colorPosition = new GLfloat[colorPoseSize];
+
+	memcpy(&vertexPosition, &vertexPos, sizeof(vertexPos));
+	setColor(0.0f, 0.0f, 0.0f);
 }
 
 GameObject::GameObject(const GLfloat *vertexPos, const GLfloat *colorPos , GLint vertexSize, GLint colorSize)
@@ -37,6 +39,27 @@ GameObject::GameObject(const GLfloat *vertexPos, const GLfloat *colorPos , GLint
 	memcpy(&vertexPosition, &vertexPos, sizeof(vertexPos));
 	memcpy(&colorPosition, &colorPos, sizeof(colorPos));
 }
+
+void GameObject::setColor(GLfloat R, GLfloat G, GLfloat B)
+{
+	for (int i = 0; i < colorPoseSize; i+=3)
+	{
+		colorPosition[i] = R;
+		colorPosition[i+1] = G;
+		colorPosition[i+2] = B;
+	}
+}
+
+void GameObject::setPosition(GLfloat deltaX , GLfloat deltaY)
+{
+	Position.x = deltaX;
+	Position.y = deltaY;
+}
+
+GameObject::GameObject()
+{
+}
+
 
 GameObject::~GameObject()
 {

@@ -38,20 +38,20 @@ void Renderer::setupObjectRenderer( GameObject& gameObject, shape Shape )
     case RECTANGLE:
        ColorSize = sizeof(rectangleVertexBuffer);
        VertexSize = sizeof(rectangleColorBuffer);
-       gameObject = GameObject(rectangleVertexBuffer, rectangleColorBuffer, VertexSize, ColorSize);
+       gameObject = GameObject(rectangleVertexBuffer, VertexSize, ColorSize , 0.0f, 0.5f, 0.0f);
        gameObject.drawCount = 6;
        break;
     default:
        break;
     }
 
-    glGenBuffers(1, &gameObject.vertexBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, gameObject.vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, gameObject.vertexPoseSize * sizeof(GLint), gameObject.vertexPosition, GL_STATIC_DRAW);
+    //glGenBuffers(1, &gameObject.vertexBuffer);
+    //glBindBuffer(GL_ARRAY_BUFFER, gameObject.vertexBuffer);
+    //glBufferData(GL_ARRAY_BUFFER, gameObject.vertexPoseSize * sizeof(GLint), gameObject.vertexPosition, GL_STATIC_DRAW);
+    //glGenBuffers(1, &gameObject.colorBuffer);
+    //glBindBuffer(GL_ARRAY_BUFFER, gameObject.colorBuffer);
+    //glBufferData(GL_ARRAY_BUFFER, gameObject.colorPoseSize * sizeof(GLint), gameObject.colorPosition, GL_STATIC_DRAW);
 
-    glGenBuffers(1, &gameObject.colorBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, gameObject.colorBuffer);
-    glBufferData(GL_ARRAY_BUFFER, gameObject.colorPoseSize * sizeof(GLint), gameObject.colorPosition, GL_STATIC_DRAW);
 }
 void Renderer::updateRenderer()
 {
@@ -96,9 +96,11 @@ void Renderer::makeCirCle()
         ++posNum;
     }
 
-    for (int i = 0; i < 12 * 3 * 3; ++i)
+    for (int i = 0; i < 12 * 3 * 3; i+=3)
     {
-        circleColor[i] = 0.2f;
+        circleColor[i] = 0.51f;
+        circleColor[i+1] = 0.65f;
+        circleColor[i+2] = 1.0f;
     }
    
 
@@ -148,6 +150,14 @@ unsigned int Renderer:: loadShader(const char* vertexShaderSource,const char* fr
 void Renderer::drawGameObject(GameObject& gameObject)
 { 
     glUseProgram(shader);
+    glGenBuffers(1, &gameObject.vertexBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, gameObject.vertexBuffer);
+    glBufferData(GL_ARRAY_BUFFER, gameObject.vertexPoseSize * sizeof(GLint), gameObject.vertexPosition, GL_STATIC_DRAW);
+
+    glGenBuffers(1, &gameObject.colorBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, gameObject.colorBuffer);
+    glBufferData(GL_ARRAY_BUFFER, gameObject.colorPoseSize * sizeof(GLint), gameObject.colorPosition, GL_STATIC_DRAW);
+
     GLuint attribPosLoc = glGetAttribLocation(shader, "aPos");
     glEnableVertexAttribArray(attribPosLoc);
     glBindBuffer(GL_ARRAY_BUFFER, gameObject.vertexBuffer);
@@ -186,18 +196,23 @@ void Renderer::drawGameObject(GameObject& gameObject)
         glUniform1i(uinformisDot, gameObject.isDot);
     }
     glDrawArrays(GL_TRIANGLES, 0, gameObject.drawCount);
+    glDeleteBuffers(1, &gameObject.colorBuffer);
+    glDeleteBuffers(1, &gameObject.vertexBuffer);
     glDisableVertexAttribArray(0);
 }
 void Renderer::drawParticle(GameObject& gameObject)
 {
     glUseProgram(particleShader);
-    glGenBuffers(1, &gameObject.vertexBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, gameObject.vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, gameObject.vertexPoseSize * sizeof(GLint), gameObject.vertexPosition, GL_STATIC_DRAW);
 
-    glGenBuffers(1, &gameObject.colorBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, gameObject.colorBuffer);
-    glBufferData(GL_ARRAY_BUFFER, gameObject.colorPoseSize * sizeof(GLint), gameObject.colorPosition, GL_STATIC_DRAW);
+
+
+    //glGenBuffers(1, &gameObject.vertexBuffer);
+    //glBindBuffer(GL_ARRAY_BUFFER, gameObject.vertexBuffer);
+    //glBufferData(GL_ARRAY_BUFFER, gameObject.vertexPoseSize * sizeof(GLint), gameObject.vertexPosition, GL_STATIC_DRAW);
+
+    //glGenBuffers(1, &gameObject.colorBuffer);
+    //glBindBuffer(GL_ARRAY_BUFFER, gameObject.colorBuffer);
+    //glBufferData(GL_ARRAY_BUFFER, gameObject.colorPoseSize * sizeof(GLint), gameObject.colorPosition, GL_STATIC_DRAW);
 
     GLuint attribPosLoc = glGetAttribLocation(particleShader, "aPos");
     glEnableVertexAttribArray(attribPosLoc);

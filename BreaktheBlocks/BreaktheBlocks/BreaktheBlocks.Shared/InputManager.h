@@ -21,6 +21,6 @@ public:
 	~InputManager();
 	void setScreenSize(GLint ScreenWidth, GLint ScreeHeight);
 	void inputTouchOn(GLfloat inputX, GLfloat inputY);
-	void inputTouchOff(GameObject& gameobject);
+	GLboolean inputTouchOff(GameObject& gameobject);
 	void inputBoolReset();
 };

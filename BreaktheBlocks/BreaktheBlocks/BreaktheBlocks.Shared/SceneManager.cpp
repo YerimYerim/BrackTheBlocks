@@ -15,8 +15,9 @@ GameWorldWidth(300.0f) , GameWorldHeight(300.0f)
 			setBlockPos(i, j, i, j);
 			Blocks[i][j].setMoveActive(false);
 			Blocks[i][j].setActive(false);
+			Blocks[i][j].setColor(255.0f / 255.0f , 115.0f / 255.0f, 88 / 255.0f);
 		}
-		Number.push_back(i);
+		BlockLineArr.push_back(i);
 	}
 	#pragma endregion	
 	#pragma region setWall
@@ -80,10 +81,10 @@ void SceneManager::updateScene()
 	#pragma region BallUpdate
 	for (int i = 0; i < MAXBALLCOUNT; ++i)
 	{
-		if (Balls[i].getActive())
+		if (Balls[i].getActive() == true)
 		{
 			renderer->drawGameObject(Balls[i]);
-			if (Balls[i].getMoveActive())
+			if (Balls[i].getMoveActive() == true)
 			{
 				Balls[i].physicsUpdate(15.0f, deltaTime);
 			}
@@ -97,23 +98,28 @@ void SceneManager::updateScene()
 		renderer->drawGameObject(Walls[i]);
 	}
 	#pragma endregion
-
-	if(stageState == SHOOT && Balls[nowBallShootingCount].getMoveActive() == true&& nowBallShootingCount< roundCount)
-		Timer(deltaTime, durationTime, 1, renderFunc);
-
-	if(stageState != END)
-		checkCollision();
-
-	if (stageState == END)
+	switch (stageState)
 	{
-		nowBallShootingCount = 1;
+	case WAIT:
+	case SHOOT:
+	{
+		checkCollision();
+		if (nowBallShootingCount < roundCount)
+		{
+			Timer(deltaTime, durationTime, 1, renderFunc);
+		}
+	}break;
+	case END:
+	{
+		nowBallShootingCount = 1; 
+	}break;
+	default:
+		break;
 	}
 }
 void SceneManager::setBallActiveTrue()
 {
 	Balls[nowBallShootingCount].setActive(true);
-	Balls[nowBallShootingCount].setMoveActive(true);
-	durationTime = 0;
 	++nowBallShootingCount;
 }
 void SceneManager::input(int32_t actionType, GLfloat x, GLfloat y)
@@ -125,10 +131,13 @@ void SceneManager::input(int32_t actionType, GLfloat x, GLfloat y)
 		{
 			for (int i = 0; i < roundCount; ++i)
 			{
-				inputManager->inputTouchOff(Balls[i]);
+				if (inputManager->inputTouchOff(Balls[i]) == true && i == 0)
+				{
+					stageState = SHOOT;
+				}
 			}
 			inputManager->inputBoolReset();
-			stageState = SHOOT;
+			
 		}
 		else if (actionType == AKEY_EVENT_ACTION_DOWN)// 첫 터치
 		{
@@ -152,25 +161,28 @@ void SceneManager::initBlockLine()
 		//1. 맨 위에 있는 블록 생성해주고
 		if (rand() % 10 < GenBlockProbability)
 		{
-			Blocks[Number.front()][j].setActive(true);
-			Blocks[Number.front()][j].setHp(roundCount);
+			GLint HP = std::min(MAXBALLCOUNT, (int)roundCount);
+			GLfloat random = std::min(  HP * 0.005f + rand() % 100 * 0.01f + 0.2f, 0.7f);
+			Blocks[BlockLineArr.front()][j].setHp(HP);
+			Blocks[BlockLineArr.front()][j].setColor(255.0f, random, random);
+			Blocks[BlockLineArr.front()][j].setActive(true);
 		}
 		//2. 마지막 칸이 active 되어있는지 확인한다.-->over인지 아닌지 결정
-		if (isGameOver == false && Blocks[Number.back()][j].getActive())
+		if (isGameOver == false && Blocks[BlockLineArr.back()][j].getActive())
 		{
 			isGameOver = true;
 		}
 	}
-	//여기가 문젠가
-	Number.push_front(Number.back());
-	Number.pop_back();
+
+	BlockLineArr.push_front(BlockLineArr.back());
+	BlockLineArr.pop_back();
 
 	//3. 모든칸을 무브!
 	for (int i = 0; i < MAXBLOCKCOLCOUNT; ++i)
 	{
 		for (int j = 0; j < MAXBLOCKROWCOUNT; ++j)
 		{
-			setBlockPos(Number.at(i), j, i, j);
+			setBlockPos(BlockLineArr.at(i), j, i, j);
 		}
 	}
 
@@ -191,7 +203,7 @@ void SceneManager::checkCollision()
 	int moveFalseCount = 0;
 	for (int ballcnt = 0; ballcnt < roundCount; ++ballcnt)
 	{
-		if (Balls[ballcnt].getActive())
+		if (Balls[ballcnt].getMoveActive() == true)
 		{
 			#pragma region BlockCheckCollider
 			for (int i = 0; i < MAXBLOCKCOLCOUNT; ++i)
@@ -213,20 +225,19 @@ void SceneManager::checkCollision()
 				{
 					if (i == BOTTOM)
 					{
-
 						Balls[ballcnt].setPosition(Balls[ballcnt].Position.x, -150.0f + Balls[ballcnt].getScale().y * 0.5f + Walls[BOTTOM].getScale().y * 0.5f);
 						Balls[ballcnt].setMoveActive(false);
-						
-						stageState = WAIT; // 임시로 Wait --> 나중에 모든 공이 아래로 떨어지면 end 상태로 둘것
-						if (firstBottomCollisionNum == -1)
+						Balls[ballcnt].setActive(false);
+	
+						if (firtFallBallNum == -1)//첫공이 바닥과 충돌시 WAIT 로 설정 후 저장
 						{
-							firstBottomCollisionNum = ballcnt;
+							firtFallBallNum = ballcnt;
 							Balls[ballcnt].setActive(true);
+							stageState = WAIT; 
 						}
 						else
 						{
-							Balls[ballcnt].setPosition(Balls[firstBottomCollisionNum].Position.x , Balls[firstBottomCollisionNum].Position.y);
-							Balls[ballcnt].setActive(false);
+							Balls[ballcnt].setPosition(Balls[firtFallBallNum].Position.x , Balls[firtFallBallNum].Position.y);
 						}
 					}
 				}
@@ -237,29 +248,35 @@ void SceneManager::checkCollision()
 		{
 			moveFalseCount++;
 		}
-		if (moveFalseCount == roundCount)
+		if (moveFalseCount  == roundCount) // 공이 모두 떨어지면
 		{
 			stageState = END;
 			roundCount += 1;
+			//처음 떨어진공 안보이게 한후 첫번째공 보이도록
+			Balls[firtFallBallNum].setActive(false);
+			Balls[0].setActive(true);
+			//다음꺼 위치 바꿔주기
+			if (ballcnt < MAXBALLCOUNT)
+			{
+				Balls[ballcnt + 1].setPosition(Balls[firtFallBallNum].Position.x, Balls[firtFallBallNum].Position.y);
+			}
 			initBlockLine();
-			//모든 공들의 위치를 firstBottomCollisionNum번째의 공과 같게 해줘야함
+			firtFallBallNum = -1;
 			moveFalseCount = 0;
-			Balls[ballcnt+1].setPosition(Balls[firstBottomCollisionNum].Position.x, Balls[firstBottomCollisionNum].Position.y);
-			firstBottomCollisionNum = -1;
 		}
 	}
 
 }
 
-void SceneManager::Timer(float& deltatime, GLfloat& durationSec, int endSecond,const std::function<void()>& renderFunc)
+void SceneManager::Timer(float& deltatime, GLfloat& durationSec, int endSecond,const std::function<void()>& Function)
 {
-	if (durationSec <= endSecond)
+	if (durationSec > endSecond)
 	{
-		durationSec += deltatime;
+		Function();
+		durationSec = 0;
 	}
 	else
 	{
-		durationSec = 0;
-		renderFunc();
+		durationSec += deltatime;
 	}
 }
