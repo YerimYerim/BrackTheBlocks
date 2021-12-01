@@ -1,3 +1,5 @@
+#ifndef GAMEUTILITY_H
+#define GAMEUTILITY_H
 #pragma once
 #ifdef __ANDROID__
 #include <GLES3/gl3.h>
@@ -25,6 +27,7 @@ void transScreenToGL(GLfloat screenWidth, GLfloat screenHeight,
 	GLfloat inputX, GLfloat inputY, GLfloat* convertedX, GLfloat* convertedY);
 
 void updateDeltaTime(float& deltatime, std::chrono::system_clock::time_point& lastTime);
+unsigned int loadShader(const char* vertexShaderSource, const char* fragmentShaderSource);
 void transGameWorldToGL(GLfloat WorldWidth, GLfloat WorldHeight, GLfloat ScreenRatio,
 	GLfloat gameWorldX, GLfloat gameWorldY, GLfloat* GLposX, GLfloat* GLposY);
-
+#endif

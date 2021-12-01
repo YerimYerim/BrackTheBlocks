@@ -112,7 +112,6 @@ private:
 	//	"}\n";
 
 	void makeCirCle();
-	unsigned int loadShader(const char* vertexShaderSource, const char* fragmentShaderSource);
 
 public:
 	                             

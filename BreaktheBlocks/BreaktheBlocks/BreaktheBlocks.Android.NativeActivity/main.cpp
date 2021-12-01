@@ -71,7 +71,7 @@ static int engine_init_display(struct engine* engine) {
 	EGLSurface surface;
 	EGLContext context;
 	EGLDisplay display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
-
+	
 	eglInitialize(display, 0, 0);
 
 	/* 여기에서 애플리케이션이 원하는 구성을 선택합니다. 이 샘플에는

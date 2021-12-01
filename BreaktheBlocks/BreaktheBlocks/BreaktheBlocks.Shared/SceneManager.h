@@ -1,5 +1,6 @@
 #pragma once
 #include "Renderer.h"
+#include "Text.h"
 #include "InputManager.h"
 #include <deque>
 #define MAXBALLCOUNT 200

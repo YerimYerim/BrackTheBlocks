@@ -1,9 +1,14 @@
 #include "SceneManager.h"
 
 
+
 SceneManager::SceneManager(GLuint width, GLuint height):screenWidth(width),screenHeight(height),
 GameWorldWidth(300.0f) , GameWorldHeight(300.0f)
 {
+	//android.resource://BreaktheBlocks.Android.Packaging//holstein
+	//initText2D("src/main/res/raw/Holstein.dds"); 
+	//initText2D("/data/user/0/com.BreaktheBlocks/files/holstein.dds"); 
+	//android.resource://com.your.package/raw/filename
 	renderer = new Renderer(screenWidth, screenHeight);
 	inputManager = new InputManager(screenWidth, screenHeight);
 	#pragma region setBlocks
@@ -55,6 +60,8 @@ GameWorldWidth(300.0f) , GameWorldHeight(300.0f)
 
 	renderFunc = std::bind(&SceneManager::setBallActiveTrue, this);
 	initBlockLine();
+
+
 }
 
 SceneManager::~SceneManager()
@@ -116,6 +123,9 @@ void SceneManager::updateScene()
 	default:
 		break;
 	}
+
+	const char* text = "hello";
+	//printText2D(text, 0, 0, 50);
 }
 void SceneManager::setBallActiveTrue()
 {
@@ -125,7 +135,7 @@ void SceneManager::setBallActiveTrue()
 void SceneManager::input(int32_t actionType, GLfloat x, GLfloat y)
 {
 	#ifdef __ANDROID__
-	if (stageState == END)
+ 	if (stageState == END)
 	{
 		if (actionType == AKEY_EVENT_ACTION_UP) // ÅÍÄ¡ off
 		{
