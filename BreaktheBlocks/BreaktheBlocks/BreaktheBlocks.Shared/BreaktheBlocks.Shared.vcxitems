@@ -16,20 +16,20 @@
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)InputManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Particle.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ParticleManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Renderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameUtility.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SceneManager.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Text.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)InputManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Particle.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ParticleManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Renderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameUtility.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SceneManager.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Text.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)FragmentShader.glsl" />

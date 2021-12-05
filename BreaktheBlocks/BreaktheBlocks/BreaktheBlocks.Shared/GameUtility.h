@@ -1,6 +1,5 @@
 #ifndef GAMEUTILITY_H
 #define GAMEUTILITY_H
-#pragma once
 #ifdef __ANDROID__
 #include <GLES3/gl3.h>
 #elif __APPLE__
@@ -20,6 +19,11 @@ struct vec3
 	GLfloat x;
 	GLfloat y;
 	GLfloat z;
+};
+enum shape
+{
+	CIRCLE = 0,
+	RECTANGLE = 1,
 };
 
 vec3 Normalize(vec3& Direction);

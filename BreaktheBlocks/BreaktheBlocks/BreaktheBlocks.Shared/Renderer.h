@@ -2,17 +2,14 @@
 #pragma once
 
 #include "GameObject.h"
+#include "Particle.h"
 
-enum shape
-{
-	CIRCLE = 0,
-	RECTANGLE = 1,
-};
 class Renderer
 {
 private:
 	GLuint shader;
 	GLuint particleShader;
+
 	GLfloat screenRatio;
 	GLfloat screenWidth;
 	GLfloat screenHeight;
@@ -61,15 +58,16 @@ private:
 		" v_Color = aColor;\n"
 		"}\n";                            
 
-	const char* objectfragmentShader = "#version 300 es\n"
+	const char* objectfragmentShader = 
+		"#version 300 es\n"
 		"in vec3 v_Color;\n"
-		"out vec4 FragColor;\n"
-		"flat in vec3 startPos;\n"
 		"in vec3 vertPos;\n"
+		"flat in vec3 startPos;\n"
+		"uniform int u_isDot;\n"
 		"uniform vec2  u_resolution;\n"
 		"float u_dashSize = 0.01f;\n"
 		"float u_gapSize = 0.01f;\n"
-		"uniform int u_isDot;"
+		"out vec4 FragColor;\n"
 		"void main()\n"
 		"{\n"
 		"	if(u_isDot != 0)\n"
@@ -82,34 +80,55 @@ private:
 		"	FragColor = vec4(v_Color.x,v_Color.y,v_Color.z, 1.0f);\n"
 		"}\n";
 
-	//const char* particleVertexShader = "#version 300 es\n"
-	//"layout (location = 0) in vec3 aPos;\n"
-	//	"layout (location = 1) in vec3 aColor;\n"
-	//	"uniform float aRatio;\n"
-	//	"uniform float aSizeX;\n"
-	//	"uniform float aSizeY;\n"
-	//	"uniform float aTransX;\n"
-	//	"uniform float aTransY;\n"
-	//	//"const vec3 aGravity = vec3(0,-0.1,0);\n"
-	//	//"const vec3 aEmitTime= vec3(0,-0.1,0);\n"
-	//	//"const vec3 = vec3(0,-0.1,0);\n"
-	//	"out vec3 v_Color;\n"
-	//	"void main()\n"
-	//	"{\n"
-	//	" vec4 aSize = vec4(aSizeX , aSizeY * aRatio, 1.0f,1.0f);\n"
-	//	" vec4 aTrasnform = vec4(aTransX , aTransY, 0.0f , 0.0f);\n"
-	//	" vec4 aPosition = vec4(aPos.x , aPos.y, 1.0f , 1.0f);\n"
-	//	" gl_Position = aPosition * aSize + aTrasnform;\n"
-	//	" v_Color = aColor;\n"
-	//	"}\n";
+	const char* particleVertexShader = 
+		"#version 300 es\n"
+		"layout (location = 0) in vec3 aPos;\n"
+		"uniform vec4 v_Color;\n"
+		"uniform vec3 scale;\n"
+		"uniform vec3 direction;\n"
+		"uniform vec3 transform;\n"
+		"uniform float aRatio;\n"
+		"uniform float durationTime;\n"
+		"uniform float lifeTime;\n"
+		"uniform int isGravity;\n"
+		"uniform int isScaling;\n"
+		"uniform int isAlphaChange;\n"
+		"const float gravity = 0.0098f;\n"
+		"out vec4 Color;\n"
+		"void main()\n"
+		"{\n"
+		"	vec4 aTrasnform = vec4(transform.x , transform.y, 0.0f , 0.0f);\n"
+		"	vec4 aLocalPosition = vec4(aPos.x , aPos.y, 1.0f , 1.0f);\n"
+		"	float scalePerTime = pow(0.8f , durationTime);\n"
+		"   float temp = pow(durationTime, 2.0f);\n"
+		"	vec4 aSize = vec4(scale.x * 0.2, scale.y * aRatio * 0.2, 1.0f,1.0f);\n"
+		"	if(isGravity != 0) // true 일때\n"
+		"	{\n"
+		"		aTrasnform.y =  aTrasnform.y - 0.5f * gravity * temp; \n"
+		"	}\n"
+		"	if(isScaling != 0) // true 일때\n"
+		"	{\n"
+		"		aSize.x = aSize.x * scalePerTime;\n"
+		"		aSize.y = aSize.y * scalePerTime;\n"
+		"	}\n"
+		"	if(isAlphaChange != 0) // true 일때\n"
+		"	{\n"
+		"		vec4 color = v_Color;\n"
+		"		color.w = scalePerTime * v_Color.w; \n"
+		"	}\n"
+		"	vec4 WorldPosition = aLocalPosition * aSize + aTrasnform;\n"
+		"	gl_Position = WorldPosition;\n"
+		"	Color = v_Color;\n"
+		"}\n";
 
-	//const char* particleFragmentShader = "#version 300 es\n"
-	//	"in vec3 v_Color;\n"
-	//	"out vec4 FragColor;\n"
-	//	"void main()\n"
-	//	"{\n"
-	//	" FragColor = vec4(v_Color.x,v_Color.y,v_Color.z, 1.0f);\n"
-	//	"}\n";
+	const char* particleFragmentShader = 
+		"#version 300 es\n"
+		"in vec4 Color;\n"
+		"out vec4 FragColor;\n"
+		"void main()\n"
+		"{\n"
+		" FragColor = vec4(Color.x, Color.y, Color.z, Color.w);\n"
+		"}\n";
 
 	void makeCirCle();
 
@@ -122,6 +141,7 @@ public:
 	void updateRenderer();
 	void drawGameObject(GameObject& gameObject);
 
-	void drawParticle(GameObject& gameObject);
+	void drawParticle(Particle& particle, GLboolean isGravity, GLboolean isScaling, GLboolean isAlphaChange);
+
 
 };

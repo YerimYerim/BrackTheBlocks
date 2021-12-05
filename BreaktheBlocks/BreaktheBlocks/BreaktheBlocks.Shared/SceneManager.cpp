@@ -1,7 +1,6 @@
 #include "SceneManager.h"
 
 
-
 SceneManager::SceneManager(GLuint width, GLuint height):screenWidth(width),screenHeight(height),
 GameWorldWidth(300.0f) , GameWorldHeight(300.0f)
 {
@@ -10,6 +9,7 @@ GameWorldWidth(300.0f) , GameWorldHeight(300.0f)
 	//initText2D("/data/user/0/com.BreaktheBlocks/files/holstein.dds"); 
 	//android.resource://com.your.package/raw/filename
 	renderer = new Renderer(screenWidth, screenHeight);
+	Particles = new ParticleManager(1,0,0,0,0,1,0,0,0.5,1000);
 	inputManager = new InputManager(screenWidth, screenHeight);
 	#pragma region setBlocks
 	for (int i = 0; i < MAXBLOCKCOLCOUNT; ++i)
@@ -70,10 +70,11 @@ SceneManager::~SceneManager()
 
 void SceneManager::updateScene()
 {
-
 	updateDeltaTime(deltaTime, lastTime);
 	renderer->updateRenderer();
 
+	Particles->RenderUpdate(deltaTime);
+	renderer->drawParticle(Particles->particles[0], true, true, true);
 	#pragma region BlockUpdate
 	for (int i = 0; i < MAXBLOCKCOLCOUNT; ++i)
 	{
@@ -124,14 +125,15 @@ void SceneManager::updateScene()
 		break;
 	}
 
-	const char* text = "hello";
 	//printText2D(text, 0, 0, 50);
 }
+
 void SceneManager::setBallActiveTrue()
 {
 	Balls[nowBallShootingCount].setActive(true);
 	++nowBallShootingCount;
 }
+
 void SceneManager::input(int32_t actionType, GLfloat x, GLfloat y)
 {
 	#ifdef __ANDROID__

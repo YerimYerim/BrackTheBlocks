@@ -1,5 +1,3 @@
-
-
 #include "Renderer.h"
 #define PI 3.14
 
@@ -8,7 +6,7 @@ Renderer::Renderer(GLfloat width, GLfloat height)
     GLuint VertexArrayID;
     screenRatio = width / height;
     shader = loadShader(objectVertexShader, objectfragmentShader);
-    //particleShader = loadShader(objectVertexShader, objectfragmentShader);
+    particleShader = loadShader(particleVertexShader, particleFragmentShader);
     makeCirCle();
     screenWidth = width;
     screenHeight = height;
@@ -105,26 +103,22 @@ void Renderer::makeCirCle()
    
 
 }
-
 void Renderer::drawGameObject(GameObject& gameObject)
 { 
     glUseProgram(shader);
+    
+    GLuint attribPosLoc = glGetAttribLocation(shader, "aPos");
     glGenBuffers(1, &gameObject.vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, gameObject.vertexBuffer);
     glBufferData(GL_ARRAY_BUFFER, gameObject.vertexPoseSize * sizeof(GLint), gameObject.vertexPosition, GL_STATIC_DRAW);
-
-    glGenBuffers(1, &gameObject.colorBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, gameObject.colorBuffer);
-    glBufferData(GL_ARRAY_BUFFER, gameObject.colorPoseSize * sizeof(GLint), gameObject.colorPosition, GL_STATIC_DRAW);
-
-    GLuint attribPosLoc = glGetAttribLocation(shader, "aPos");
     glEnableVertexAttribArray(attribPosLoc);
-    glBindBuffer(GL_ARRAY_BUFFER, gameObject.vertexBuffer);
     glVertexAttribPointer(attribPosLoc, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3, (GLvoid*)(0));
 
     GLuint attribColorLoc = glGetAttribLocation(shader, "aColor");
-    glEnableVertexAttribArray(attribColorLoc);
+    glGenBuffers(1, &gameObject.colorBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, gameObject.colorBuffer);
+    glBufferData(GL_ARRAY_BUFFER, gameObject.colorPoseSize * sizeof(GLint), gameObject.colorPosition, GL_STATIC_DRAW);
+    glEnableVertexAttribArray(attribColorLoc);
     glVertexAttribPointer(attribColorLoc, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3, (GLvoid*)(0));
 
     GLuint uniformRatio = glGetUniformLocation(shader, "aRatio");
@@ -159,47 +153,54 @@ void Renderer::drawGameObject(GameObject& gameObject)
     glDeleteBuffers(1, &gameObject.vertexBuffer);
     glDisableVertexAttribArray(0);
 }
-void Renderer::drawParticle(GameObject& gameObject)
+void Renderer::drawParticle(Particle& particle, GLboolean isGravity, GLboolean isScaling, GLboolean isAlphaChange)
 {
     glUseProgram(particleShader);
 
-
-
-    //glGenBuffers(1, &gameObject.vertexBuffer);
-    //glBindBuffer(GL_ARRAY_BUFFER, gameObject.vertexBuffer);
-    //glBufferData(GL_ARRAY_BUFFER, gameObject.vertexPoseSize * sizeof(GLint), gameObject.vertexPosition, GL_STATIC_DRAW);
-
-    //glGenBuffers(1, &gameObject.colorBuffer);
-    //glBindBuffer(GL_ARRAY_BUFFER, gameObject.colorBuffer);
-    //glBufferData(GL_ARRAY_BUFFER, gameObject.colorPoseSize * sizeof(GLint), gameObject.colorPosition, GL_STATIC_DRAW);
-
     GLuint attribPosLoc = glGetAttribLocation(particleShader, "aPos");
+    glGenBuffers(1, &particle.vertexBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, particle.vertexBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(rectangleVertexBuffer) * sizeof(GLint), &rectangleVertexBuffer, GL_STATIC_DRAW);
     glEnableVertexAttribArray(attribPosLoc);
-    glBindBuffer(GL_ARRAY_BUFFER, gameObject.vertexBuffer);
     glVertexAttribPointer(attribPosLoc, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3, (GLvoid*)(0));
 
-    GLuint attribColorLoc = glGetAttribLocation(particleShader, "aColor");
-    glEnableVertexAttribArray(attribColorLoc);
-    glBindBuffer(GL_ARRAY_BUFFER, gameObject.colorBuffer);
-    glVertexAttribPointer(attribColorLoc, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3, (GLvoid*)(0));
 
-    GLuint uniformRatio = glGetUniformLocation(shader, "aRatio");
+    GLuint uniformColor = glGetUniformLocation(particleShader, "v_Color");
+    glUniform4f(uniformColor, particle.Color.x , particle.Color.y, particle.Color.z, particle.Alpha);
+
+    GLuint uniformScale = glGetUniformLocation(particleShader, "scale");
+    glUniform3f(uniformScale, particle.Scale.x, particle.Scale.y, particle.Scale.z);
+
+    GLuint uniformDir = glGetUniformLocation(particleShader, "direction");
+    glUniform3f(uniformDir, particle.Velocity.x, particle.Velocity.y, particle.Velocity.z);
+
+    GLuint uniformRatio = glGetUniformLocation(particleShader, "aRatio");
     glUniform1f(uniformRatio, screenRatio);
 
-    if (gameObject.colorPosition != NULL)
-    {
-        GLuint uniformTransform = glGetUniformLocation(particleShader, "aTransX");
-        glUniform1f(uniformTransform, gameObject.Position.x);
+    GLfloat glX;
+    GLfloat glY;
 
-        GLuint uniformTransformY = glGetUniformLocation(particleShader, "aTransY");
-        glUniform1f(uniformTransformY, gameObject.Position.y);
+    transGameWorldToGL(300.0f, 300.0f, screenRatio, particle.Position.x, particle.Position.y, &glX, &glY);
+    GLuint uniformTrans = glGetUniformLocation(particleShader, "transform");
+    glUniform3f(uniformTrans, particle.Position.x, particle.Position.y, particle.Position.z);
 
-        GLuint uniformSizeX = glGetUniformLocation(particleShader, "aSizeX");
-        glUniform1f(uniformSizeX, gameObject.getScale().x);
+   // float scalePerTime = pow(0.99f, particle.durationTime);
+    GLuint uniformTimeScale = glGetUniformLocation(particleShader, "durationTime");
+    glUniform1f(uniformTimeScale, particle.durationTime);
 
-        GLuint uniformSizeY = glGetUniformLocation(particleShader, "aSizeY");
-        glUniform1f(uniformSizeY, gameObject.getScale().y);
-    }
-    glDrawArrays(GL_TRIANGLES, 0, gameObject.drawCount);
+    GLuint uniformLifeTime = glGetUniformLocation(particleShader, "lifeTime");
+    glUniform1f(uniformLifeTime, particle.Life);
+
+    GLuint uniformIsGravity = glGetUniformLocation(particleShader, "isGravity");
+    glUniform1f(uniformIsGravity, isGravity);
+
+    GLuint uniformIsScaling = glGetUniformLocation(particleShader, "isScaling");
+    glUniform1f(uniformIsScaling, isScaling);
+
+    GLuint uniformisAlphachange = glGetUniformLocation(particleShader, "isAlphaChange");
+    glUniform1f(uniformisAlphachange, isAlphaChange);
+
+    glDrawArrays(GL_TRIANGLES, 0, 36);
+    glDeleteBuffers(1, &particle.vertexBuffer);
     glDisableVertexAttribArray(0);
 }

@@ -1,22 +1,24 @@
-#pragma once
+#ifndef PARTICLE_H
+#define PARTICLE_H
 #include "GameUtility.h"
 
 class Particle
 {
-private:
-	
-	GLfloat StartTime = 0.0f;
-	GLfloat EndTime = 0.0f;
-	GLfloat CurTime = 0.0f;
+public:
+    vec3 Position;
+    vec3 Velocity;
+    vec3 Scale = {1, 1 ,1};
+    vec3 Color;
+    GLfloat Alpha;
+    GLfloat Life;
+    GLfloat durationTime = 0;
+    GLuint vertexBuffer;
 
-	vec3 transfrom = { 0.0f,0.0f, 1.0f};
-	GLfloat* vertexPosition;
-	GLfloat* colorPosition;
+    Particle(GLfloat posX, GLfloat PosY, GLfloat VelX, GLfloat VelY, GLfloat R, GLfloat G, GLfloat B, GLfloat A, GLfloat lifetime);
+    Particle();
+    ~Particle();
 
-	GLuint drawCount;
-	GLuint vertexBuffer;
-	GLuint colorBuffer;
-
-	GLuint Count = 12;
+    void PhysicsUpdate(GLfloat& deltaTime);
 };
 
+#endif

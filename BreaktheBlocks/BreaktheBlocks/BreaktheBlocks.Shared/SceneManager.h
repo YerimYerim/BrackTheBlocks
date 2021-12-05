@@ -1,7 +1,7 @@
 #pragma once
 #include "Renderer.h"
-#include "Text.h"
 #include "InputManager.h"
+#include "ParticleManager.h"
 #include <deque>
 #define MAXBALLCOUNT 200
 #define MAXWALLCOUNT 4
@@ -45,6 +45,7 @@ class SceneManager
 		GLint nowBallShootingCount = 0;
 		int firtFallBallNum = -1;
 		std::function<void()> renderFunc;
+		ParticleManager* Particles;
 	public:
 		SceneManager(GLuint width, GLuint height);
 		~SceneManager();
