@@ -166,7 +166,7 @@ void Renderer::drawParticle(Particle& particle, GLboolean isGravity, GLboolean i
 
 
     GLuint uniformColor = glGetUniformLocation(particleShader, "v_Color");
-    glUniform4f(uniformColor, particle.Color.x , particle.Color.y, particle.Color.z, particle.Alpha);
+    glUniform4f(uniformColor, particle.Color.x  , particle.Color.y, particle.Color.z, particle.Alpha);
 
     GLuint uniformScale = glGetUniformLocation(particleShader, "scale");
     glUniform3f(uniformScale, particle.Scale.x, particle.Scale.y, particle.Scale.z);

@@ -9,7 +9,7 @@ GameWorldWidth(300.0f) , GameWorldHeight(300.0f)
 	//initText2D("/data/user/0/com.BreaktheBlocks/files/holstein.dds"); 
 	//android.resource://com.your.package/raw/filename
 	renderer = new Renderer(screenWidth, screenHeight);
-	Particles = new ParticleManager(1,0,0,0,0,1,0,0,0.5,1000);
+
 	inputManager = new InputManager(screenWidth, screenHeight);
 	#pragma region setBlocks
 	for (int i = 0; i < MAXBLOCKCOLCOUNT; ++i)
@@ -57,11 +57,19 @@ GameWorldWidth(300.0f) , GameWorldHeight(300.0f)
 	}
 	Balls[0].setActive(true);
 	#pragma endregion
-
 	renderFunc = std::bind(&SceneManager::setBallActiveTrue, this);
+
+
+	Particles = new ParticleManager(45, 0, 0, 0, 0, 1, 0, 0, 0.5, 1000);
+
+	for (int i = 0; i < 45; ++i)
+	{
+	
+		//Particles->setParticlesPosition(Blocks[i]);
+	}
+
+
 	initBlockLine();
-
-
 }
 
 SceneManager::~SceneManager()
@@ -74,7 +82,10 @@ void SceneManager::updateScene()
 	renderer->updateRenderer();
 
 	Particles->RenderUpdate(deltaTime);
-	renderer->drawParticle(Particles->particles[0], true, true, true);
+	for (int i = 0; i < Particles->MaxParticle; ++i)
+	{
+		renderer->drawParticle(Particles->particles[i], true, true, true);
+	}
 	#pragma region BlockUpdate
 	for (int i = 0; i < MAXBLOCKCOLCOUNT; ++i)
 	{

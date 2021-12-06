@@ -4,6 +4,11 @@ ParticleManager::~ParticleManager()
 {
 }
 
+void ParticleManager::setParticlesPosition( GLfloat x, GLfloat y, GLuint num)
+{
+	particles[num].setPosition(x, y);
+}
+
 void ParticleManager::RenderUpdate(GLfloat& deltaTime)
 {
 	for(int i = 0; i < particles.size(); ++i)

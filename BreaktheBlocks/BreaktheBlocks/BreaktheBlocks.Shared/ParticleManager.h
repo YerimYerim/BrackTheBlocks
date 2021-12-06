@@ -20,8 +20,9 @@ public:
 	GLfloat RateOverAlpha = 0.0f;
 	shape Shape = CIRCLE;
 	void RenderUpdate(GLfloat &deltaTime);
-
+	void setParticlesPosition(GLfloat x, GLfloat y, GLuint num);
 	ParticleManager(GLint maxCount, GLfloat posX, GLfloat PosY, GLfloat VelX, GLfloat VelY, GLfloat R, GLfloat G, GLfloat B, GLfloat A, GLfloat lifetime);
+
 	~ParticleManager();
 };
 
