@@ -16,7 +16,8 @@ Renderer::Renderer(GLfloat width, GLfloat height)
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glViewport(0, 0, width, height);
     glFrontFace(GL_CCW);
-    
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 Renderer::~Renderer()
 {
@@ -54,6 +55,7 @@ void Renderer::setupObjectRenderer( GameObject& gameObject, shape Shape )
 void Renderer::updateRenderer()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 }
 void Renderer::makeCirCle()
 {
@@ -182,7 +184,7 @@ void Renderer::drawParticle(Particle& particle, GLboolean isGravity, GLboolean i
 
     transGameWorldToGL(300.0f, 300.0f, screenRatio, particle.Position.x, particle.Position.y, &glX, &glY);
     GLuint uniformTrans = glGetUniformLocation(particleShader, "transform");
-    glUniform3f(uniformTrans, particle.Position.x, particle.Position.y, particle.Position.z);
+    glUniform3f(uniformTrans, glX, glY, particle.Position.z);
 
    // float scalePerTime = pow(0.99f, particle.durationTime);
     GLuint uniformTimeScale = glGetUniformLocation(particleShader, "durationTime");
@@ -192,15 +194,15 @@ void Renderer::drawParticle(Particle& particle, GLboolean isGravity, GLboolean i
     glUniform1f(uniformLifeTime, particle.Life);
 
     GLuint uniformIsGravity = glGetUniformLocation(particleShader, "isGravity");
-    glUniform1f(uniformIsGravity, isGravity);
-
+    glUniform1i(uniformIsGravity, isGravity);
+    
     GLuint uniformIsScaling = glGetUniformLocation(particleShader, "isScaling");
-    glUniform1f(uniformIsScaling, isScaling);
+    glUniform1i(uniformIsScaling, isScaling);
 
     GLuint uniformisAlphachange = glGetUniformLocation(particleShader, "isAlphaChange");
-    glUniform1f(uniformisAlphachange, isAlphaChange);
+    glUniform1i(uniformisAlphachange, isAlphaChange);
 
     glDrawArrays(GL_TRIANGLES, 0, 36);
-    glDeleteBuffers(1, &particle.vertexBuffer);
     glDisableVertexAttribArray(0);
+    glDeleteBuffers(1, &particle.vertexBuffer);
 }

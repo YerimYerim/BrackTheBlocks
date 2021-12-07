@@ -4,6 +4,18 @@ ParticleManager::~ParticleManager()
 {
 }
 
+void ParticleManager::addLastUsedNum()
+{
+	if (LastUsed < MaxParticle - 1)
+	{
+		++LastUsed;
+	}
+	else
+	{
+		LastUsed = 0;
+	}
+}
+
 void ParticleManager::setParticlesPosition( GLfloat x, GLfloat y, GLuint num)
 {
 	particles[num].setPosition(x, y);
@@ -22,8 +34,12 @@ ParticleManager::ParticleManager(GLint maxCount , GLfloat posX, GLfloat PosY, GL
 	MaxParticle = maxCount;
 	for (int i = 0; i < maxCount; ++i)
 	{
-		float x = rand() % 10;
 		Particle Particle = { posX, PosY, VelX, VelY, R, G, B, A, lifetime };
 		particles.push_back(Particle);
 	}
+}
+
+void ParticleManager::resetParticles(GLuint num)
+{
+	particles[num].reset();
 }

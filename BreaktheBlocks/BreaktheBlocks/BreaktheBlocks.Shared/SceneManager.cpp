@@ -49,26 +49,29 @@ GameWorldWidth(300.0f) , GameWorldHeight(300.0f)
 	for (int i = 0; i < MAXBALLCOUNT; ++i)
 	{
 		renderer->setupObjectRenderer(Balls[i], CIRCLE);
-
 		Balls[i].setScale(10.0f, 10.0f);
 		Balls[i].setPosition(0, -150.0f + Balls[0].getScale().y * 0.5f + Walls[BOTTOM].getScale().y * 0.5f);
 		Balls[i].setActive(false);
 		Balls[i].setMoveActive(false);
+		ParticleManager *BallParticles = new ParticleManager(20, 0, 0, 0, 0, 0.51f, 0.65f, 1.0f, 0.6f, 500);
+		BallParticles->isColorChange = true;
+		BallParticles->isScaling = true;
+		BallParticles->isGravity = false;
+		BallParticles->isLooping = true;
+		for (int i = 0; i < BallParticles->MaxParticle; ++i)
+		{
+			BallParticles->setParticlesPosition(Balls[0].Position.x, Balls[0].Position.y, i);
+
+		}
+		BallparticleManagers.push_back(BallParticles);
 	}
+
+
 	Balls[0].setActive(true);
 	#pragma endregion
-	renderFunc = std::bind(&SceneManager::setBallActiveTrue, this);
 
-
-	Particles = new ParticleManager(45, 0, 0, 0, 0, 1, 0, 0, 0.5, 1000);
-
-	for (int i = 0; i < 45; ++i)
-	{
-	
-		//Particles->setParticlesPosition(Blocks[i]);
-	}
-
-
+	FuncSetballactive = std::bind(&SceneManager::setBallActiveTrue, this);
+	FuncSetBallParticleActive = std::bind(&SceneManager::setBallParticle, this);
 	initBlockLine();
 }
 
@@ -80,12 +83,13 @@ void SceneManager::updateScene()
 {
 	updateDeltaTime(deltaTime, lastTime);
 	renderer->updateRenderer();
-
-	Particles->RenderUpdate(deltaTime);
-	for (int i = 0; i < Particles->MaxParticle; ++i)
+	//setBallParticle();
+	Timer(deltaTime, BallParticledurationTime, 0.2f, FuncSetBallParticleActive);
+	for (auto BallParticles : BallparticleManagers)
 	{
-		renderer->drawParticle(Particles->particles[i], true, true, true);
+
 	}
+
 	#pragma region BlockUpdate
 	for (int i = 0; i < MAXBLOCKCOLCOUNT; ++i)
 	{
@@ -100,12 +104,16 @@ void SceneManager::updateScene()
 	#pragma region BallUpdate
 	for (int i = 0; i < MAXBALLCOUNT; ++i)
 	{
-		if (Balls[i].getActive() == true)
+		if (Balls[i].getActive() == true) 
 		{
 			renderer->drawGameObject(Balls[i]);
 			if (Balls[i].getMoveActive() == true)
 			{
 				Balls[i].physicsUpdate(15.0f, deltaTime);
+			}
+			for (int j = 0; j < BallparticleManagers[i]->MaxParticle; ++j)
+			{
+				renderer->drawParticle(BallparticleManagers[i]->particles[j], BallparticleManagers[i]->isGravity, BallparticleManagers[i]->isScaling, BallparticleManagers[i]->isColorChange);
 			}
 		}
 	}
@@ -125,8 +133,9 @@ void SceneManager::updateScene()
 		checkCollision();
 		if (nowBallShootingCount < roundCount)
 		{
-			Timer(deltaTime, durationTime, 1, renderFunc);
+			Timer(deltaTime, BallShootdurationTime, 1, FuncSetballactive);
 		}
+
 	}break;
 	case END:
 	{
@@ -137,6 +146,17 @@ void SceneManager::updateScene()
 	}
 
 	//printText2D(text, 0, 0, 50);
+}
+
+void SceneManager::setBallParticle()
+{
+	for (int i = 0; i< MAXBALLCOUNT; ++i)
+	{
+		BallparticleManagers[i]->RenderUpdate(deltaTime);
+		BallparticleManagers[i]->setParticlesPosition(Balls[i].Position.x, Balls[i].Position.y, BallparticleManagers[i]->LastUsed);
+		BallparticleManagers[i]->resetParticles(BallparticleManagers[i]->LastUsed);
+		BallparticleManagers[i]->addLastUsedNum();
+	}
 }
 
 void SceneManager::setBallActiveTrue()

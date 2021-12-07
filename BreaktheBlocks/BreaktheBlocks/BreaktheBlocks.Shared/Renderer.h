@@ -99,26 +99,26 @@ private:
 		"{\n"
 		"	vec4 aTrasnform = vec4(transform.x + direction.x * durationTime * 0.05f , transform.y + direction.y * durationTime* 0.05f, 0.0f , 0.0f);\n"
 		"	vec4 aLocalPosition = vec4(aPos.x , aPos.y, 1.0f , 1.0f);\n"
+		"	vec4 color = v_Color;\n"
 		"	float scalePerTime = pow(0.8f , durationTime);\n"
 		"   float temp = pow(durationTime, 2.0f);\n"
 		"	vec4 aSize = vec4(scale.x / 300.0f, scale.y * aRatio / 300.0f, 1.0f,1.0f);\n"
-		"	if(isGravity == 0) // true 老锭\n"
+		"	if(isGravity != 0) // true 老锭\n"
 		"	{\n"
 		"		aTrasnform.y =  aTrasnform.y - 0.5f * gravity * temp; \n"
 		"	}\n"
-		"	if(isScaling == 0) // true 老锭\n"
+		"	if(isScaling != 0) // true 老锭\n"
 		"	{\n"
 		"		aSize.x = aSize.x * scalePerTime;\n"
 		"		aSize.y = aSize.y * scalePerTime;\n"
 		"	}\n"
-		"	if(isAlphaChange == 0) // true 老锭\n"  
+		"	if(isAlphaChange != 0) // true 老锭\n"  
 		"	{\n"
-		"		vec4 color = v_Color;\n"
-		"		color.w = scalePerTime * v_Color.w; \n"
+		"		color.w = scalePerTime * color.w; \n"
 		"	}\n"
 		"	vec4 WorldPosition = aLocalPosition * aSize + aTrasnform ;\n"
 		"	gl_Position = WorldPosition;\n"
-		"	Color = v_Color;\n"
+		"	Color = color;\n"
 		"}\n";
 
 	const char* particleFragmentShader = 
@@ -127,7 +127,7 @@ private:
 		"out vec4 FragColor;\n"
 		"void main()\n"
 		"{\n"
-		" FragColor = vec4(Color.x, Color.y, Color.z, Color.w);\n"
+		" FragColor = vec4(Color.x, Color.y, Color.z,Color.w);\n"
 		"}\n";
 
 	void makeCirCle();

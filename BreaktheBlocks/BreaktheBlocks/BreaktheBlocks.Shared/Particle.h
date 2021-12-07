@@ -15,12 +15,13 @@ public:
     GLuint vertexBuffer;
 
     Particle(GLfloat posX, GLfloat PosY, GLfloat VelX, GLfloat VelY, GLfloat R, GLfloat G, GLfloat B, GLfloat A, GLfloat lifetime);
-    void setPosition(GLfloat x, GLfloat y);
-    void setPosition(vec3& pos);
     Particle();
     ~Particle();
 
     void PhysicsUpdate(GLfloat& deltaTime);
+    void setPosition(GLfloat x, GLfloat y);
+    void setPosition(vec3& pos);
+    void reset();
 };
 
 #endif

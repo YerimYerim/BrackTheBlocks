@@ -37,20 +37,23 @@ class SceneManager
 		const GLfloat GameWorldWidth;
 		const GLfloat GameWorldHeight;
 		std::deque<GLuint> BlockLineArr;
+		std::vector<ParticleManager*> BallparticleManagers;
 		GLuint GenBlockProbability = 6;
 
 		std::chrono::system_clock::time_point lastTime = std::chrono::system_clock::now();
 		GLfloat deltaTime;
-		GLfloat durationTime = 0;
+		GLfloat BallShootdurationTime = 0;
+		GLfloat BallParticledurationTime = 0;
 		GLint nowBallShootingCount = 0;
 		int firtFallBallNum = -1;
-		std::function<void()> renderFunc;
-		ParticleManager* Particles;
+		std::function<void()> FuncSetballactive;
+		std::function<void()> FuncSetBallParticleActive;
 	public:
 		SceneManager(GLuint width, GLuint height);
 		~SceneManager();
 
 		void updateScene();
+		void setBallParticle();
 		void setBallActiveTrue();
 		void input(int32_t actionType, GLfloat x, GLfloat y);
 		void initBlockLine();
