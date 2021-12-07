@@ -187,7 +187,9 @@ void Renderer::drawParticle(Particle& particle, GLboolean isGravity, GLboolean i
     glUniform3f(uniformTrans, glX, glY, particle.Position.z);
 
    // float scalePerTime = pow(0.99f, particle.durationTime);
+    
     GLuint uniformTimeScale = glGetUniformLocation(particleShader, "durationTime");
+    
     glUniform1f(uniformTimeScale, particle.durationTime);
 
     GLuint uniformLifeTime = glGetUniformLocation(particleShader, "lifeTime");
@@ -203,6 +205,6 @@ void Renderer::drawParticle(Particle& particle, GLboolean isGravity, GLboolean i
     glUniform1i(uniformisAlphachange, isAlphaChange);
 
     glDrawArrays(GL_TRIANGLES, 0, 36);
-    glDisableVertexAttribArray(0);
     glDeleteBuffers(1, &particle.vertexBuffer);
+    glDisableVertexAttribArray(0);
 }

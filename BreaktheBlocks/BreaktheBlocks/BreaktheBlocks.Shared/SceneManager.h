@@ -37,7 +37,7 @@ class SceneManager
 		const GLfloat GameWorldWidth;
 		const GLfloat GameWorldHeight;
 		std::deque<GLuint> BlockLineArr;
-		std::vector<ParticleManager*> BallparticleManagers;
+		std::vector<ParticleManager> BallparticleManagers;
 		GLuint GenBlockProbability = 6;
 
 		std::chrono::system_clock::time_point lastTime = std::chrono::system_clock::now();
@@ -59,6 +59,6 @@ class SceneManager
 		void initBlockLine();
 		void setBlockPos(GLuint nowCol, GLuint nowRow, GLfloat afterCol, GLfloat afterRow);
 		void checkCollision();
-		void Timer(float& deltatime, GLfloat& durationSec, int endSecond,const std::function<void()>& renderFunc);
+		void Timer(float& deltatime, GLfloat& durationSec, int endSecond, const std::function<void()>& renderFunc);
 };
 

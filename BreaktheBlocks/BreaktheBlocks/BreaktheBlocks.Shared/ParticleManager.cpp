@@ -21,11 +21,11 @@ void ParticleManager::setParticlesPosition( GLfloat x, GLfloat y, GLuint num)
 	particles[num].setPosition(x, y);
 }
 
-void ParticleManager::RenderUpdate(GLfloat& deltaTime)
+void ParticleManager::durationTimeUpdate(GLfloat& deltaTime)
 {
-	for(int i = 0; i < particles.size(); ++i)
+	for (int i = 0; i < MaxParticle; ++i)
 	{
-		particles[i].PhysicsUpdate(deltaTime);
+		particles[i].durationTimeUpdate(deltaTime);
 	}
 }
 

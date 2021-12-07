@@ -100,7 +100,7 @@ private:
 		"	vec4 aTrasnform = vec4(transform.x + direction.x * durationTime * 0.05f , transform.y + direction.y * durationTime* 0.05f, 0.0f , 0.0f);\n"
 		"	vec4 aLocalPosition = vec4(aPos.x , aPos.y, 1.0f , 1.0f);\n"
 		"	vec4 color = v_Color;\n"
-		"	float scalePerTime = pow(0.8f , durationTime);\n"
+		"	float scalePerTime = pow(0.95f , durationTime);\n"
 		"   float temp = pow(durationTime, 2.0f);\n"
 		"	vec4 aSize = vec4(scale.x / 300.0f, scale.y * aRatio / 300.0f, 1.0f,1.0f);\n"
 		"	if(isGravity != 0) // true ¿œ∂ß\n"

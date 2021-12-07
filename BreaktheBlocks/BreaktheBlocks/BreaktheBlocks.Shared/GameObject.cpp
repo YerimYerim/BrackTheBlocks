@@ -127,8 +127,11 @@ void GameObject::addForce(vec3& direction)
 
 void GameObject::physicsUpdate(GLfloat Speed, GLfloat& deltatime)
 {
-	Position.x += moveDirection.x * Speed * deltatime;
-	Position.y += moveDirection.y * Speed * deltatime;
+	if (isMove == true)
+	{
+		Position.x += moveDirection.x * Speed * deltatime;
+		Position.y += moveDirection.y * Speed * deltatime;
+	}
 }
 void GameObject::setActive(GLboolean isactive)
 {
