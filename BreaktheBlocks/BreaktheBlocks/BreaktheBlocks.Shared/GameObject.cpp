@@ -97,26 +97,37 @@ GLboolean GameObject::CheckCollider(GameObject& Circle)
 			{
 				// 왼쪽 오른쪽에서 충돌
 				Circle.changeDirection(VERTICAL);
-				isActive = false;
+				Circle.addPosition((Circle.moveDirection.x /abs(Circle.moveDirection.x))* Circle.getScale().x * 0.5f , 0);
+				HpDown();
 				return true;
 			}
 			else if (Circle.Position.x > LeftTop.x && Circle.Position.x < RightBottom.x) //위or 아래에서 충돌된것
 			{
 				Circle.changeDirection(HORIZONTAL);
-				isActive = false;
-				return true;
+				Circle.addPosition(0, (Circle.moveDirection.y / abs(Circle.moveDirection.y)) * Circle.getScale().y * 0.5f);
+				HpDown();
+				return true; 
 			}
 			else if(powf(Position.x - Circle.Position.x,2) + powf(Position.y - Circle.Position.y,2) 
 				< powf(circleScale + getScale().x,2) + powf(circleScale + getScale().y, 2))// 꼭짓점
 			{
 				Circle.changeDirection(VERTICAL);
 				Circle.changeDirection(HORIZONTAL);
-				isActive = false;
+				HpDown();
 				return true;
 			}
 		}
 	}
 	return false;
+}
+
+void GameObject::HpDown()
+{
+	--Hp;
+	if (Hp <= 0)
+	{
+		isActive = false;
+	}
 }
 
 void GameObject::addForce(vec3& direction)

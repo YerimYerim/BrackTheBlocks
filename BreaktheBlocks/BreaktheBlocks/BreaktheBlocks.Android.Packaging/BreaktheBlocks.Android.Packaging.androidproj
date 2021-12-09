@@ -119,9 +119,6 @@
     </AntPackage>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Content Include="res\raw\holstein.dds">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="res\values\strings.xml" />
     <AntBuildXml Include="build.xml" />
     <AndroidManifest Include="AndroidManifest.xml" />
@@ -131,6 +128,9 @@
     <ProjectReference Include="..\BreaktheBlocks.Android.NativeActivity\BreaktheBlocks.Android.NativeActivity.vcxproj">
       <Project>{f210deba-477b-42be-a3e4-30bda7c32c65}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="res\raw\" />
   </ItemGroup>
   <Import Project="$(AndroidTargetsPath)\Android.targets" />
   <ImportGroup Label="ExtensionTargets" />

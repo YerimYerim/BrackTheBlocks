@@ -27,6 +27,7 @@ class SceneManager
 		GameObject Balls[200]; // 최대 개수 200개로 설정 
 		GameObject Blocks[MAXBLOCKCOLCOUNT][MAXBLOCKROWCOUNT];// 가로 5개 세로 3*5개 최대 --> 75개면 충분
 		GameObject Walls[4];
+		GameObject BallsGuideLine[10];
 		StageState stageState = END;
 		GLboolean isGameOver = false;
 		
@@ -38,6 +39,7 @@ class SceneManager
 		const GLfloat GameWorldHeight;
 		std::deque<GLuint> BlockLineArr;
 		std::vector<ParticleManager> BallparticleManagers;
+
 		GLuint GenBlockProbability = 6;
 
 		std::chrono::system_clock::time_point lastTime = std::chrono::system_clock::now();
@@ -48,6 +50,8 @@ class SceneManager
 		int firtFallBallNum = -1;
 		std::function<void()> FuncSetballactive;
 		std::function<void()> FuncSetBallParticleActive;
+
+		ParticleManager BlockparticleManagers[MAXBLOCKCOLCOUNT][MAXBLOCKROWCOUNT];
 	public:
 		SceneManager(GLuint width, GLuint height);
 		~SceneManager();

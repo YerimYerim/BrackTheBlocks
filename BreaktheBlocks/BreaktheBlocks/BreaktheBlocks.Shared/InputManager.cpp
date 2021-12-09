@@ -55,6 +55,17 @@ void InputManager::inputTouchOn(GLfloat inputX, GLfloat inputY)
 		direction.x = startTouchPosition.x - nowPosition.x;
 		direction.y = startTouchPosition.y - nowPosition.y;
 
+		float tempAngle = atan2(direction.y, direction.x) * 180.0f / 3.14f;
+		if (tempAngle < 20)
+		{
+			direction.x = cos(20 * 3.14f / 180.0f);
+			direction.y = sin(20 * 3.14f / 180.0f);
+		}
+		if (tempAngle > 160)
+		{
+			direction.x = cos(160 * 3.14f / 180.0f);
+			direction.y = sin(160 * 3.14f / 180.0f);
+		}
 		direction = Normalize(direction);
 	}
 }
@@ -63,9 +74,18 @@ GLboolean InputManager::inputTouchOff(GameObject& gameobject)
 	if (isShootReady == true)
 	{
 		// น฿ป็!
-		gameobject.addForce(direction);
-		gameobject.setMoveActive(true);
-		return true;
+		float tempAngle = atan2(direction.y, direction.x) * 180.0f / 3.14f ;
+		if (tempAngle >= 20 && tempAngle <= 160)
+		{	
+			gameobject.addForce(direction);
+			gameobject.setMoveActive(true); 
+			return true;
+		}
+		else
+		{
+
+			return false;
+		}
 	}
 	else if (isShootReady == false)
 	{

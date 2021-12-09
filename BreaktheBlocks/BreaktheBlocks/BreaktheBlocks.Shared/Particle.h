@@ -14,7 +14,8 @@ public:
     GLfloat durationTime = 100000.0f;
     GLuint vertexBuffer;
 
-    Particle(GLfloat posX, GLfloat PosY, GLfloat VelX, GLfloat VelY, GLfloat R, GLfloat G, GLfloat B, GLfloat A, GLfloat lifetime);
+
+    Particle(GLfloat posX, GLfloat PosY, GLfloat VelX, GLfloat VelY, GLfloat ScaleX, GLfloat ScaleY, GLfloat R, GLfloat G, GLfloat B, GLfloat A, GLfloat lifetime);
     Particle();
     ~Particle();
 

@@ -10,10 +10,10 @@ private:
 
 	vec3 startTouchPosition = { -1, -1, 0 };
 	vec3 readyTouchPosition = { -1, -1, 0 };
-	vec3 direction = { 0,0,0 };
 public:
 	GLint screenWidth;
 	GLint screenHeight;
+	vec3 direction = { 0,0,0 };
 
 	vec3 nowPosition = { -1, -1, 0 };
 	InputManager();

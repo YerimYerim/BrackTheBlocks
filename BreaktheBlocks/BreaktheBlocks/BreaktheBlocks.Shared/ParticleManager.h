@@ -15,7 +15,9 @@ public:
 	GLboolean isGravity = false;
 	GLboolean isColorChange = false;
 
-	ParticleManager(GLint maxCount, GLfloat posX, GLfloat PosY, GLfloat VelX, GLfloat VelY, GLfloat R, GLfloat G, GLfloat B, GLfloat A, GLfloat lifetime);
+	ParticleManager(GLint maxCount, GLfloat posX, GLfloat PosY, GLfloat VelX, GLfloat VelY, GLfloat ScaleX, GLfloat ScaleY,GLfloat R, GLfloat G, GLfloat B, GLfloat A, GLfloat lifetime);
+	ParticleManager(GLint maxCount, GLfloat posX, GLfloat PosY, GLfloat ScaleX, GLfloat ScaleY, GLfloat R, GLfloat G, GLfloat B, GLfloat A, GLfloat lifetime);
+	ParticleManager();
 	~ParticleManager();
 
 	void setParticlesPosition(GLfloat x, GLfloat y, GLuint num);
