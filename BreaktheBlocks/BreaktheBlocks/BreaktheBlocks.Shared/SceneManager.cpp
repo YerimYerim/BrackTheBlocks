@@ -17,13 +17,11 @@ GameWorldWidth(300.0f) , GameWorldHeight(300.0f)
 			Blocks[i][j].setMoveActive(false);
 			Blocks[i][j].setActive(false);
 			Blocks[i][j].setColor(1.0f, 0.0f, 0.0f);
-
 			BlockparticleManagers[i][j] = ParticleManager(30, Blocks[i][j].Position.x, Blocks[i][j].Position.y, 
 				50, 50, 1, 0, 0, 6, 100.0f);
 			BlockparticleManagers[i][j].isColorChange = true;
 			BlockparticleManagers[i][j].isScaling = true;
 			BlockparticleManagers[i][j].isGravity = true;
-			BlockparticleManagers[i][j].isLooping = true;
 		}
 		BlockLineArr.push_back(i);
 	}
@@ -61,8 +59,6 @@ GameWorldWidth(300.0f) , GameWorldHeight(300.0f)
 		BallParticles.isColorChange = true;
 		BallParticles.isScaling = true;
 		BallParticles.isGravity = false;
-		BallParticles.isLooping = true;
-
 		for (int i = 0; i < BallParticles.MaxParticle; ++i)
 		{
 			BallParticles.setParticlesPosition(-600, -11, i);
@@ -100,29 +96,31 @@ void SceneManager::updateScene()
 	{
 		for (int j = 0; j < MAXBLOCKROWCOUNT; ++j)
 		{
-			if(Blocks[i][j].getActive())
-				renderer->drawGameObject(Blocks[i][j]);
-			else
+			if (Blocks[BlockLineArr[i]][j].getActive() == true)
+			{
+				renderer->drawGameObject(Blocks[BlockLineArr[i]][j]);
+			}
+			else if (BlockparticleManagers[i][j].particles[0].getisActive() == true)
 			{
 				for (int t = 0; t < BlockparticleManagers[i][j].MaxParticle; ++t)
 				{
-					if (BlockparticleManagers[i][j].particles[t].getisActive() == true)
-					{
-						renderer->drawParticle(BlockparticleManagers[i][j].particles[t], true, true, true);
-						BlockparticleManagers[i][j].durationTimeUpdate(deltaTime);
-					}
+					renderer->drawParticle(BlockparticleManagers[i][j].particles[t], true, true, true);
+					BlockparticleManagers[i][j].durationTimeUpdate(deltaTime);
 				}
 			}
 		}
 	}
 	#pragma endregion
 
-
 	for (int i = 0; i < 10; ++i)
 	{
 		if (BallsGuideLine[i].getActive() == true)
 		{
 			renderer->drawGameObject(BallsGuideLine[i]);
+		}
+		else
+		{
+			break;
 		}
 	}
 	#pragma region BallUpdate
@@ -259,14 +257,7 @@ void SceneManager::initBlockLine()
 					}
 				}
 			} 
-			for (int i = 0; i < roundCount; ++i)
-			{
-				Balls[i].setActive(false);
-				BallparticleManagers[i].setParticlesPosition(-600, -11, i);
-			}
-			Balls[0].setActive(true);
-			roundCount = 1;
-			isGameOver = false;
+			resetGame();
 		}
 	}
 
@@ -282,6 +273,18 @@ void SceneManager::initBlockLine()
 		}
 	}
 
+}
+
+void SceneManager::resetGame()
+{
+	for (int i = 0; i < roundCount; ++i)
+	{
+		Balls[i].setActive(false);
+		BallparticleManagers[i].setParticlesPosition(-600, -11, i);
+	}
+	Balls[0].setActive(true);
+	roundCount = 1;
+	isGameOver = false;
 }
 
 void SceneManager::setBlockPos(GLuint nowCol, GLuint nowRow, GLfloat afterCol, GLfloat afterRow)

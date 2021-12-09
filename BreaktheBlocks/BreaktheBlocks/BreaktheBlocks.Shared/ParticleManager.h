@@ -11,7 +11,6 @@ public:
 	GLuint drawCount = 36;
 
 	GLboolean isScaling = false;
-	GLboolean isLooping = false;
 	GLboolean isGravity = false;
 	GLboolean isColorChange = false;
 
