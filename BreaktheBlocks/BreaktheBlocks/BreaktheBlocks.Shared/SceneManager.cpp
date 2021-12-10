@@ -13,12 +13,14 @@ GameWorldWidth(300.0f) , GameWorldHeight(300.0f)
 		for (int j = 0; j < MAXBLOCKROWCOUNT; ++j)
 		{
 			renderer->setupObjectRenderer(Blocks[i][j], RECTANGLE);
+			
 			setBlockPos(i, j, i, j); 
 			Blocks[i][j].setMoveActive(false);
 			Blocks[i][j].setActive(false);
 			Blocks[i][j].setColor(1.0f, 0.0f, 0.0f);
+
 			BlockparticleManagers[i][j] = ParticleManager(30, Blocks[i][j].Position.x, Blocks[i][j].Position.y, 
-				50, 50, 1, 0, 0, 6, 100.0f);
+				Blocks[i][j].getScale().y * 0.5f, Blocks[i][j].getScale().y * 0.5f, 1, 0, 0, 0.8f, 100.0f);
 			BlockparticleManagers[i][j].isColorChange = true;
 			BlockparticleManagers[i][j].isScaling = true;
 			BlockparticleManagers[i][j].isGravity = true;
@@ -55,14 +57,11 @@ GameWorldWidth(300.0f) , GameWorldHeight(300.0f)
 		Balls[i].setActive(false);
 		Balls[i].setMoveActive(false);
 
-		ParticleManager BallParticles = ParticleManager(30, 0, 0, 0, 0, 7, 7, 0.51f, 0.65f, 1.0f, 0.5f, 10.0f);
+		ParticleManager BallParticles(30, 0, 0, 0, 0, 7, 7, 0.51f, 0.65f, 1.0f, 0.5f, 10.0f);
 		BallParticles.isColorChange = true;
 		BallParticles.isScaling = true;
 		BallParticles.isGravity = false;
-		for (int i = 0; i < BallParticles.MaxParticle; ++i)
-		{
-			BallParticles.setParticlesPosition(-600, -11, i);
-		}
+		BallParticles.setParticlesPosition(-600, -11);
 		BallparticleManagers.push_back(BallParticles);
 	}
 	Balls[0].setActive(true);
@@ -70,6 +69,7 @@ GameWorldWidth(300.0f) , GameWorldHeight(300.0f)
 	for (int i = 0; i < 10; ++i)
 	{	
 		renderer->setupObjectRenderer(BallsGuideLine[i], CIRCLE);
+
 		BallsGuideLine[i].setScale(5.0f, 5.0f);
 		BallsGuideLine[i].setPosition(0, -150.0f + Balls[0].getScale().y * 0.5f + Walls[BOTTOM].getScale().y * 0.5f);
 		BallsGuideLine[i].setActive(false);
@@ -84,6 +84,8 @@ GameWorldWidth(300.0f) , GameWorldHeight(300.0f)
 
 SceneManager::~SceneManager()
 {
+	delete renderer;
+	delete inputManager;
 }
 
 void SceneManager::updateScene()
@@ -102,10 +104,11 @@ void SceneManager::updateScene()
 			}
 			else if (BlockparticleManagers[i][j].particles[0].getisActive() == true)
 			{
+				BlockparticleManagers[i][j].durationTimeUpdate(deltaTime);
 				for (int t = 0; t < BlockparticleManagers[i][j].MaxParticle; ++t)
 				{
-					renderer->drawParticle(BlockparticleManagers[i][j].particles[t], true, true, true);
-					BlockparticleManagers[i][j].durationTimeUpdate(deltaTime);
+					renderer->drawParticle(BlockparticleManagers[i][j].particles[t], BlockparticleManagers[i][j].isGravity,
+						BlockparticleManagers[i][j].isScaling, BlockparticleManagers[i][j].isColorChange);
 				}
 			}
 		}
@@ -130,8 +133,10 @@ void SceneManager::updateScene()
 		for (int j = 0; j < BallparticleManagers[i].MaxParticle; ++j)
 		{
 			if (BallparticleManagers[i].particles[j].getisActive() == true)
+			{
 				renderer->drawParticle(BallparticleManagers[i].particles[j], BallparticleManagers[i].isGravity,
 					BallparticleManagers[i].isScaling, BallparticleManagers[i].isColorChange);
+			}
 		}
 		if (Balls[i].getActive() == true) 
 		{
@@ -172,8 +177,8 @@ void SceneManager::setBallParticle()
 {
 	for (int i = 0; i < roundCount; ++i)
 	{
-		BallparticleManagers[i].resetParticles(BallparticleManagers[i].LastUsed);
-		BallparticleManagers[i].setParticlesPosition(Balls[i].Position.x, Balls[i].Position.y, BallparticleManagers[i].LastUsed);
+		BallparticleManagers[i].resetParticle(BallparticleManagers[i].LastUsed);
+		BallparticleManagers[i].setParticlePosition(Balls[i].Position.x, Balls[i].Position.y, BallparticleManagers[i].LastUsed);
 		BallparticleManagers[i].addLastUsedNum();
 	}
 }
@@ -252,7 +257,7 @@ void SceneManager::initBlockLine()
 						Blocks[i][j].setActive(false);
 						for (int t = 0; t < BlockparticleManagers[i][j].MaxParticle; ++t)
 						{
-							BlockparticleManagers[i][j].resetParticles(t);
+							BlockparticleManagers[i][j].resetParticle(t);
 						}
 					}
 				}
@@ -280,7 +285,7 @@ void SceneManager::resetGame()
 	for (int i = 0; i < roundCount; ++i)
 	{
 		Balls[i].setActive(false);
-		BallparticleManagers[i].setParticlesPosition(-600, -11, i);
+		BallparticleManagers[i].setParticlesPosition(-600, -11);
 	}
 	Balls[0].setActive(true);
 	roundCount = 1;
@@ -314,10 +319,7 @@ void SceneManager::checkCollision()
 						int HP = Blocks[BlockLineArr[i]][j].getHp();
 						if (HP < 1)
 						{
-							for (int t = 0; t < BlockparticleManagers[i][j].MaxParticle; ++t)
-							{
-								BlockparticleManagers[i][j].resetParticles(t);
-							}
+							BlockparticleManagers[i][j].resetParticles();							
 						}
 						else
 						{

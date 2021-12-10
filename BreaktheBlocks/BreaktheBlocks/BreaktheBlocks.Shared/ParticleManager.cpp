@@ -16,9 +16,15 @@ void ParticleManager::addLastUsedNum()
 	}
 }
 
-void ParticleManager::setParticlesPosition( GLfloat x, GLfloat y, GLuint num)
+void ParticleManager::setParticlePosition( GLfloat x, GLfloat y, GLuint num)
 {
 	particles[num].setPosition(x, y);
+}
+
+void ParticleManager::setParticlesPosition(GLfloat x, GLfloat y)
+{
+	for(int i = 0; i< MaxParticle; ++i)
+		particles[i].setPosition(x, y);
 }
 
 void ParticleManager::durationTimeUpdate(GLfloat& deltaTime)
@@ -43,17 +49,25 @@ ParticleManager::ParticleManager(GLint maxCount, GLfloat posX, GLfloat PosY, GLf
 	MaxParticle = maxCount;
 	for (int i = 0; i < maxCount; ++i)
 	{
-		vec3 temp = { rand() % 20 * 0.1f - 1, rand() % 10 * 0.1f - 0.5f , 8};
-		temp = Normalize(temp);
-		Particle Particle = { posX, PosY, temp.x, temp.y,ScaleX ,ScaleY ,R, G, B, A, lifetime };
-		particles.push_back(Particle);
+		vec3 tempVel = { rand() % 10 * 0.1f - 0.5f, rand() % 10 * 0.1f - 0.5f , 0};
+		tempVel = Normalize(tempVel);
+		Particle particle(posX, PosY, tempVel.x * 0.7f, tempVel.y * 0.5f,ScaleX ,ScaleY ,R, G, B, A, lifetime);
+		particles.push_back(particle);
 	}
 }
 ParticleManager::ParticleManager()
 {
 }
 
-void ParticleManager::resetParticles(GLuint num)
+void ParticleManager::resetParticle(GLuint num)
 {
 	particles[num].reset();
+}
+
+void ParticleManager::resetParticles()
+{
+	for (int i = 0; i < MaxParticle; ++i)
+	{
+		particles[i].reset();
+	}
 }

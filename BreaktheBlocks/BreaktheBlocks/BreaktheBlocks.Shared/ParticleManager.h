@@ -19,9 +19,11 @@ public:
 	ParticleManager();
 	~ParticleManager();
 
-	void setParticlesPosition(GLfloat x, GLfloat y, GLuint num);
+	void setParticlePosition(GLfloat x, GLfloat y, GLuint num);
+	void setParticlesPosition(GLfloat x, GLfloat y);
 	void durationTimeUpdate(GLfloat& deltaTime);
-	void resetParticles(GLuint num);
+	void resetParticle(GLuint num);
+	void resetParticles();
 	void addLastUsedNum();
 };
 

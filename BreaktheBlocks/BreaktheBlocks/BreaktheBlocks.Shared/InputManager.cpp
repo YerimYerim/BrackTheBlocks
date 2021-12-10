@@ -34,14 +34,14 @@ void InputManager::inputTouchOn(GLfloat inputX, GLfloat inputY)
 	nowPosition.x = convertedX;
 	nowPosition.y = convertedY;
 
-	// Ã¹ ÅÍÄ¡
+	// Ã¹ ï¿½ï¿½Ä¡
 	if (isTouched == false) 
 	{
 		isTouched = true;
 		startTouchPosition.x = convertedX;
 		startTouchPosition.y = convertedY;
 	}
-	// ÅÍÄ¡ ÀÌÈÄ ¾Æ·¡·Î ³»¸®Áø ¾ÊÀº»óÅÂ 
+	// ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 	else if (isTouched == true && isShootReady == false) 
 	{
 		if (nowPosition.y < startTouchPosition.y)
@@ -49,23 +49,12 @@ void InputManager::inputTouchOn(GLfloat inputX, GLfloat inputY)
 			isShootReady = true;
 		}
 	}
-	// ÅÍÄ¡ ÀÌÈÄ ¾Æ·¡·Î ³»·Á ¹ß»ç ÁØºñ ÈÄ °¢µµ¸¦ Á¶ÀýÇÏ´Â »óÅÂ
+	// ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ ï¿½Øºï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½
 	else if (isTouched == true && isShootReady == true) 
 	{
 		direction.x = startTouchPosition.x - nowPosition.x;
 		direction.y = startTouchPosition.y - nowPosition.y;
 
-		float tempAngle = atan2(direction.y, direction.x) * 180.0f / 3.14f;
-		if (tempAngle < 20)
-		{
-			direction.x = cos(20 * 3.14f / 180.0f);
-			direction.y = sin(20 * 3.14f / 180.0f);
-		}
-		if (tempAngle > 160)
-		{
-			direction.x = cos(160 * 3.14f / 180.0f);
-			direction.y = sin(160 * 3.14f / 180.0f);
-		}
 		direction = Normalize(direction);
 	}
 }
@@ -73,19 +62,10 @@ GLboolean InputManager::inputTouchOff(GameObject& gameobject)
 {
 	if (isShootReady == true)
 	{
-		// ¹ß»ç!
-		float tempAngle = atan2(direction.y, direction.x) * 180.0f / 3.14f ;
-		if (tempAngle >= 20 && tempAngle <= 160)
-		{	
-			gameobject.addForce(direction);
-			gameobject.setMoveActive(true); 
-			return true;
-		}
-		else
-		{
-
-			return false;
-		}
+		// ï¿½ß»ï¿½!
+		gameobject.addForce(direction);
+		gameobject.setMoveActive(true);
+		return true;
 	}
 	else if (isShootReady == false)
 	{

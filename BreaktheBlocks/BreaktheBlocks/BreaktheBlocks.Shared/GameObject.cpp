@@ -20,11 +20,14 @@ GameObject::GameObject(const GLfloat* vertexPos, GLint vertexSize, GLint colorSi
 	vertexPoseSize = vertexSize / sizeof(GLint);
 	colorPoseSize = colorSize / sizeof(GLint);
 
-	vertexPosition = new GLfloat[vertexPoseSize];
+//	vertexPosition = new GLfloat[vertexPoseSize];
 	colorPosition = new GLfloat[colorPoseSize];
 
+	//사각형은 색 내가 정해서쓸예정
 	memcpy(&vertexPosition, &vertexPos, sizeof(vertexPos));
 	setColor(0.0f, 0.0f, 0.0f);
+	
+
 }
 
 GameObject::GameObject(const GLfloat *vertexPos, const GLfloat *colorPos , GLint vertexSize, GLint colorSize)
@@ -33,11 +36,10 @@ GameObject::GameObject(const GLfloat *vertexPos, const GLfloat *colorPos , GLint
 	vertexPoseSize = vertexSize / sizeof(GLint);
 	colorPoseSize = colorSize / sizeof(GLint);
 
-	vertexPosition = new GLfloat [vertexPoseSize];
- 	colorPosition = new GLfloat[colorPoseSize];
-
+	// 원일경우 메모리 공유해서 씀
 	memcpy(&vertexPosition, &vertexPos, sizeof(vertexPos));
 	memcpy(&colorPosition, &colorPos, sizeof(colorPos));
+
 }
 
 void GameObject::setColor(GLfloat R, GLfloat G, GLfloat B)
