@@ -1,19 +1,22 @@
 #ifndef GAMEUTILITY_H
+
 #define GAMEUTILITY_H
 #ifdef __ANDROID__
-#include <GLES3/gl3.h>
+#include "GLES3/gl3.h"
+#include "GLES3/gl3ext.h"
 #elif __APPLE__
 #include <OpenGLES/ES3/gl.h>
 #endif
-#include <iostream>
-#include <math.h>
-#include <string>
-#include <stdlib.h>
-#include <vector>
-#include <stdio.h>
-#include <deque>
-#include <chrono>
-#include <algorithm>
+#include "iostream"
+#include "math.h"
+#include "string"
+#include "stdlib.h"
+#include "vector"
+#include "stdio.h"
+#include "deque"
+#include "chrono"
+#include "algorithm"
+
 struct vec3
 {
 	GLfloat x;

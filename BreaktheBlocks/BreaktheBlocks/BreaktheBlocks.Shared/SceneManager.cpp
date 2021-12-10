@@ -191,52 +191,52 @@ void SceneManager::setBallActiveTrue()
 
 void SceneManager::input(int32_t actionType, GLfloat x, GLfloat y)
 {
-	#ifdef __ANDROID__
- 	if (stageState == END)
-	{
-		if (actionType == AKEY_EVENT_ACTION_UP) // ÅÍÄ¡ off
-		{
-			for (int i = 0; i < roundCount; ++i)
-			{
-				if (inputManager->inputTouchOff(Balls[i]) == true && i == 0)
-				{
-					stageState = SHOOT;
-				}
-			}
-			inputManager->inputBoolReset();
-
-			for (int i = 0; i < 10; ++i)
-			{
-				BallsGuideLine[i].setActive(false);
-			}
-		}
-		else if (actionType == AKEY_EVENT_ACTION_DOWN)// Ã¹ ÅÍÄ¡
-		{
-			inputManager->inputTouchOn(x, y);
-		}
-		else // µå·¡±× 
-		{
-			inputManager->inputTouchOn(x, y);
-
-			for (int i = 0; i < 10; ++i)
-			{
-				if(BallsGuideLine[i].getActive() == false)
-					BallsGuideLine[i].setActive(true);
-				BallsGuideLine[i].setPosition(Balls[0].Position.x + inputManager->direction.x * i * 10, Balls[0].Position.y + inputManager->direction.y * 10 * i);
-			}
-		}
-
-	}
-	#elif __APPLE__
-
-	#endif
+	//#ifdef __ANDROID__
+ 	//if (stageState == END)
+	//{
+	//	if (actionType == AKEY_EVENT_ACTION_UP) // ï¿½ï¿½Ä¡ off
+	//	{
+	//		for (int i = 0; i < roundCount; ++i)
+	//		{
+	//			if (inputManager->inputTouchOff(Balls[i]) == true && i == 0)
+	//			{
+	//				stageState = SHOOT;
+	//			}
+	//		}
+	//		inputManager->inputBoolReset();
+//
+	//		for (int i = 0; i < 10; ++i)
+	//		{
+	//			BallsGuideLine[i].setActive(false);
+	//		}
+	//	}
+	//	else if (actionType == AKEY_EVENT_ACTION_DOWN)// Ã¹ ï¿½ï¿½Ä¡
+	//	{
+	//		inputManager->inputTouchOn(x, y);
+	//	}
+	//	else // ï¿½å·¡ï¿½ï¿½
+	//	{
+	//		inputManager->inputTouchOn(x, y);
+//
+	//		for (int i = 0; i < 10; ++i)
+	//		{
+	//			if(BallsGuideLine[i].getActive() == false)
+	//				BallsGuideLine[i].setActive(true);
+	//			BallsGuideLine[i].setPosition(Balls[0].Position.x + inputManager->direction.x * i * 10, Balls[0].Position.y + inputManager->direction.y * 10 * i);
+	//		}
+	//	}
+//
+	//}
+	//#elif __APPLE__
+//
+	//#endif
 }
 
 void SceneManager::initBlockLine()
 {
 	for (int j = 0; j < MAXBLOCKROWCOUNT; ++j)
 	{
-		//1. ¸Ç À§¿¡ ÀÖ´Â ºí·Ï »ý¼ºÇØÁÖ°í
+		//1. ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö°ï¿½
 		if (rand() % 10 < GenBlockProbability)
 		{
 			GLint HP = std::min(MAXBALLCOUNT, (int)roundCount);
@@ -244,7 +244,7 @@ void SceneManager::initBlockLine()
 			Blocks[BlockLineArr.front()][j].setColor(1.0f, 0.0f, 0.0f);
 			Blocks[BlockLineArr.front()][j].setActive(true);
 		}
-		//2. ¸¶Áö¸· Ä­ÀÌ active µÇ¾îÀÖ´ÂÁö È®ÀÎÇÑ´Ù.-->overÀÎÁö ¾Æ´ÑÁö °áÁ¤
+		//2. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä­ï¿½ï¿½ active ï¿½Ç¾ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ñ´ï¿½.-->overï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if (isGameOver == false && Blocks[BlockLineArr.back()][j].getActive())
 		{
 			isGameOver = true;
@@ -269,7 +269,7 @@ void SceneManager::initBlockLine()
 	BlockLineArr.push_front(BlockLineArr.back());
 	BlockLineArr.pop_back();
 
-	//3. ¸ðµçÄ­À» ¹«ºê!
+	//3. ï¿½ï¿½ï¿½Ä­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!
 	for (int i = 0; i < MAXBLOCKCOLCOUNT; ++i)
 	{
 		for (int j = 0; j < MAXBLOCKROWCOUNT; ++j)
@@ -341,7 +341,7 @@ void SceneManager::checkCollision()
 						Balls[ballcnt].setMoveActive(false);
 						Balls[ballcnt].setActive(false);
 	
-						if (firtFallBallNum == -1)//Ã¹°øÀÌ ¹Ù´Ú°ú Ãæµ¹½Ã WAIT ·Î ¼³Á¤ ÈÄ ÀúÀå
+						if (firtFallBallNum == -1)//Ã¹ï¿½ï¿½ï¿½ï¿½ ï¿½Ù´Ú°ï¿½ ï¿½æµ¹ï¿½ï¿½ WAIT ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 						{
 							firtFallBallNum = ballcnt;
 							Balls[ballcnt].setActive(true);
@@ -360,14 +360,14 @@ void SceneManager::checkCollision()
 		{
 			moveFalseCount++;
 		}
-		if (moveFalseCount  == roundCount) // °øÀÌ ¸ðµÎ ¶³¾îÁö¸é
+		if (moveFalseCount  == roundCount) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 			stageState = END;
 			roundCount += 1;
-			//Ã³À½ ¶³¾îÁø°ø ¾Èº¸ÀÌ°Ô ÇÑÈÄ Ã¹¹øÂ°°ø º¸ÀÌµµ·Ï
+			//Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Èºï¿½ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¹ï¿½ï¿½Â°ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½
 			Balls[firtFallBallNum].setActive(false);
 			Balls[0].setActive(true);
-			//´ÙÀ½²¨ À§Ä¡ ¹Ù²ãÁÖ±â
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½Ù²ï¿½ï¿½Ö±ï¿½
 			if (ballcnt < MAXBALLCOUNT)
 			{
 				Balls[ballcnt + 1].setPosition(Balls[firtFallBallNum].Position.x, Balls[firtFallBallNum].Position.y);
