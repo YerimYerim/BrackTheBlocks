@@ -23,12 +23,12 @@ public class MainActivity extends AppCompatActivity {
     @Override protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         setContentView(R.layout.activity_main);
-        RoundTextView = (TextView)findViewById(R.id.score);
+
         mView = new GL3JNIView(getApplication());
         layout = findViewById(R.id.Main);
         layout.addView(mView);
+        RoundTextView = (TextView)findViewById(R.id.score);
         RoundTextView.setText(GL3JNILib.getRoundCount());
-
     }
 
     @Override protected void onPause() {

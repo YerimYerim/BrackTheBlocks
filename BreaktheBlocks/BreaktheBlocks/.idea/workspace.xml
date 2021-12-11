@@ -13,16 +13,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="25f6d878-83e1-4b2b-bc67-cfbd8acfd44f" name="Default Changelist" comment="add Opengl Frame Buffer draw success">
-      <change afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BreaktheBlocks.Shared/SceneManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/BreaktheBlocks.Shared/SceneManager.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BreaktheBlocks.Shared/SceneManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/BreaktheBlocks.Shared/SceneManager.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/mainLoop.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/mainLoop.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/Blocks/GL3JNILib.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/Blocks/GL3JNILib.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/Blocks/GL3JNIView.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/Blocks/GL3JNIView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/Blocks/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/Blocks/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
