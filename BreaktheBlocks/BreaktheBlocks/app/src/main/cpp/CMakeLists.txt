@@ -38,6 +38,7 @@ add_library( # Sets the name of the library.
         C:/Users/leeyerim/Desktop/BreaktheBlocks/BreaktheBlocks/BreaktheBlocks/BreaktheBlocks.Shared/SceneManager.cpp
         C:/Users/leeyerim/Desktop/BreaktheBlocks/BreaktheBlocks/BreaktheBlocks/BreaktheBlocks.Shared/SceneManager.h
         native-lib.cpp
+        mainLoop.cpp
         )
 
 # Searches for a specified prebuilt library and stores the path as a
