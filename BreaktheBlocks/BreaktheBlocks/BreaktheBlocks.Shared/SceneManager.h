@@ -59,11 +59,12 @@ class SceneManager
 		void updateScene();
 		void setBallParticle();
 		void setBallActiveTrue();
-		void input(int32_t actionType, GLfloat x, GLfloat y);
+		void input(GLboolean isTouched, GLfloat x, GLfloat y);
 		void initBlockLine();
 		void resetGame();
 		void setBlockPos(GLuint nowCol, GLuint nowRow, GLfloat afterCol, GLfloat afterRow);
 		void checkCollision();
 		void Timer(float& deltatime, GLfloat& durationSec, int endSecond, const std::function<void()>& renderFunc);
+		std::string getRoundCount();
 };
 

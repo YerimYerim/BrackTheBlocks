@@ -4,20 +4,31 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.text.Layout;
+import android.view.MotionEvent;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import com.example.Blocks.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
     // Used to load the 'Blocks' library on application startup.
-
+    FrameLayout layout;
     GL3JNIView mView;
-
+    TextView RoundTextView;
+    SurfaceHolder surfaceHolder;
     @Override protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+        setContentView(R.layout.activity_main);
+        RoundTextView = (TextView)findViewById(R.id.score);
         mView = new GL3JNIView(getApplication());
-        setContentView(mView);
+        layout = findViewById(R.id.Main);
+        layout.addView(mView);
+        RoundTextView.setText(GL3JNILib.getRoundCount());
+
     }
 
     @Override protected void onPause() {
@@ -28,5 +39,25 @@ public class MainActivity extends AppCompatActivity {
     @Override protected void onResume() {
         super.onResume();
         mView.onResume();
+    }
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        float x = event.getX();
+        float y = event.getY();
+
+        switch (event.getAction()){
+
+            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_MOVE:
+                GL3JNILib.InputEvent(true,x,y);
+                break;
+            case MotionEvent.ACTION_UP:
+                GL3JNILib.InputEvent(false,x,y);
+                break;
+            default:
+                break;
+
+        }
+        return super.onTouchEvent(event);
     }
 }

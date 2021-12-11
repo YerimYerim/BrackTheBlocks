@@ -21,6 +21,7 @@ import android.content.Context;
 import android.graphics.PixelFormat;
 import android.opengl.GLSurfaceView;
 import android.util.Log;
+import android.view.SurfaceHolder;
 
 import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGLConfig;
@@ -49,10 +50,13 @@ import javax.microedition.khronos.opengles.GL10;
 class GL3JNIView extends GLSurfaceView {
     private static String TAG = "GL3JNIView";
     private static final boolean DEBUG = false;
-
+    SurfaceHolder holder;
     public GL3JNIView(Context context) {
         super(context);
+        holder = getHolder();
+        holder.addCallback(this);
         init(false, 0, 0);
+
     }
 
     public GL3JNIView(Context context, boolean translucent, int depth, int stencil) {
@@ -92,7 +96,7 @@ class GL3JNIView extends GLSurfaceView {
     private static class ContextFactory implements GLSurfaceView.EGLContextFactory {
         private static int EGL_CONTEXT_CLIENT_VERSION = 0x3098;
         public EGLContext createContext(EGL10 egl, EGLDisplay display, EGLConfig eglConfig) {
-            Log.w(TAG, "creating OpenGL ES 2.0 context");
+            Log.w(TAG, "creating OpenGL ES 3.0 context");
             checkEglError("Before eglCreateContext", egl);
             int[] attrib_list = {EGL_CONTEXT_CLIENT_VERSION, 2, EGL10.EGL_NONE };
             EGLContext context = egl.eglCreateContext(display, eglConfig, EGL10.EGL_NO_CONTEXT, attrib_list);

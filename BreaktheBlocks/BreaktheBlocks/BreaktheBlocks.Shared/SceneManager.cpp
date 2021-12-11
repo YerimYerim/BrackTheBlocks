@@ -189,47 +189,42 @@ void SceneManager::setBallActiveTrue()
 	++nowBallShootingCount;
 }
 
-void SceneManager::input(int32_t actionType, GLfloat x, GLfloat y)
+void SceneManager::input(GLboolean isTouched, GLfloat x, GLfloat y)
 {
-	//#ifdef __ANDROID__
- 	//if (stageState == END)
-	//{
-	//	if (actionType == AKEY_EVENT_ACTION_UP) // ��ġ off
-	//	{
-	//		for (int i = 0; i < roundCount; ++i)
-	//		{
-	//			if (inputManager->inputTouchOff(Balls[i]) == true && i == 0)
-	//			{
-	//				stageState = SHOOT;
-	//			}
-	//		}
-	//		inputManager->inputBoolReset();
-//
-	//		for (int i = 0; i < 10; ++i)
-	//		{
-	//			BallsGuideLine[i].setActive(false);
-	//		}
-	//	}
-	//	else if (actionType == AKEY_EVENT_ACTION_DOWN)// ù ��ġ
-	//	{
-	//		inputManager->inputTouchOn(x, y);
-	//	}
-	//	else // �巡��
-	//	{
-	//		inputManager->inputTouchOn(x, y);
-//
-	//		for (int i = 0; i < 10; ++i)
-	//		{
-	//			if(BallsGuideLine[i].getActive() == false)
-	//				BallsGuideLine[i].setActive(true);
-	//			BallsGuideLine[i].setPosition(Balls[0].Position.x + inputManager->direction.x * i * 10, Balls[0].Position.y + inputManager->direction.y * 10 * i);
-	//		}
-	//	}
-//
-	//}
-	//#elif __APPLE__
-//
-	//#endif
+	#ifdef __ANDROID__
+	if (stageState == END)
+	{
+		if (isTouched == false) // ��ġ off
+		{
+			for (int i = 0; i < roundCount; ++i)
+			{
+				if (inputManager->inputTouchOff(Balls[i]) == true && i == 0)
+				{
+					stageState = SHOOT;
+				}
+			}
+			inputManager->inputBoolReset();
+
+			for (int i = 0; i < 10; ++i)
+			{
+				BallsGuideLine[i].setActive(false);
+			}
+		}
+		else if (isTouched == true)// ù ��ġ
+		{
+			inputManager->inputTouchOn(x, y);
+			for (int i = 0; i < 10; ++i)
+			{
+				if(BallsGuideLine[i].getActive() == false)
+					BallsGuideLine[i].setActive(true);
+				BallsGuideLine[i].setPosition(Balls[0].Position.x + inputManager->direction.x * i * 10, Balls[0].Position.y + inputManager->direction.y * 10 * i);
+			}
+		}
+
+	}
+	#elif __APPLE__
+
+	#endif
 }
 
 void SceneManager::initBlockLine()
@@ -391,4 +386,8 @@ void SceneManager::Timer(float& deltatime, GLfloat& durationSec, int endSecond,c
 	{
 		durationSec += deltatime;
 	}
+}
+
+std::string SceneManager::getRoundCount() {
+	return std::to_string(roundCount);
 }

@@ -6,5 +6,6 @@ public class GL3JNILib {
     }
     public static native void Start(int width, int height);
     public static native void Update();
-    public static native void InputEvent();
+    public static native void InputEvent(boolean isTouch, float x, float y);
+    public static native String getRoundCount();
 }

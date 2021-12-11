@@ -12,21 +12,24 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="25f6d878-83e1-4b2b-bc67-cfbd8acfd44f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/cpp/mainLoop.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/Blocks/GL3JNILib.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/Blocks/GL3JNIView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" />
+    <list default="true" id="25f6d878-83e1-4b2b-bc67-cfbd8acfd44f" name="Default Changelist" comment="add Opengl Frame Buffer draw success">
+      <change afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BreaktheBlocks.Shared/SceneManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/BreaktheBlocks.Shared/SceneManager.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BreaktheBlocks.Shared/SceneManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/BreaktheBlocks.Shared/SceneManager.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/mainLoop.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/mainLoop.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/Blocks/GL3JNILib.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/Blocks/GL3JNILib.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/Blocks/GL3JNIView.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/Blocks/GL3JNIView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/Blocks/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/Blocks/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[R3CN80J12PJ]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\leeyerim\.android\avd\Pixel_2_API_28.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -86,12 +89,14 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android-custom-viewC:/Users/leeyerim/AppData/Local/Android/Sdk/sources/android-31/android/opengl/GLSurfaceView.java_GLSurfaceView_DIMENSIONS" value="1080&#10;1920" />
     <property name="android-custom-viewC:/Users/leeyerim/AppData/Local/Android/Sdk/sources/android-31/android/opengl/GLSurfaceView.java_SELECTED" value="GLSurfaceView" />
     <property name="android-custom-viewC:/Users/leeyerim/AppData/Local/Android/Sdk/sources/android-31/android/widget/TableLayout.java_SELECTED" value="TableLayout" />
     <property name="android-custom-viewC:/Users/leeyerim/AppData/Local/Android/Sdk/sources/android-31/android/widget/TableLayout.java_TableLayout_DIMENSIONS" value="1080&#10;1920" />
     <property name="android-custom-viewC:/Users/leeyerim/Desktop/BreaktheBlocks/BreaktheBlocks/BreaktheBlocks/app/src/main/java/com/example/Blocks/GL3JNIView.java_GL2JNIView_DIMENSIONS" value="1080&#10;1920" />
     <property name="android-custom-viewC:/Users/leeyerim/Desktop/BreaktheBlocks/BreaktheBlocks/BreaktheBlocks/app/src/main/java/com/example/Blocks/GL3JNIView.java_SELECTED" value="GL2JNIView" />
+    <property name="ignore.virus.scanning.warn.message" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -173,6 +178,14 @@
       <option name="presentableId" value="Default" />
       <updated>1639138272333</updated>
     </task>
+    <task id="LOCAL-00001" summary="add Opengl Frame Buffer draw success">
+      <created>1639217471491</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1639217471491</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -185,5 +198,20 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add Opengl Frame Buffer draw success" />
+    <option name="LAST_COMMIT_MESSAGE" value="add Opengl Frame Buffer draw success" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/BreaktheBlocks.Shared/SceneManager.cpp</url>
+          <line>391</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

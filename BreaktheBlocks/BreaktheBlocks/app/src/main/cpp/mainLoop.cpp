@@ -14,9 +14,17 @@ void Update()
 {
     sceneManager->updateScene();
 }
-void Inputsystem()
+void Inputsystem( bool isTouched, float nowX, float nowY)
 {
+    sceneManager->input( isTouched, nowX , nowY);
+}
 
+std::string getRoundCount()
+{
+    if(sceneManager != NULL)
+        return sceneManager->getRoundCount();
+    else
+        return "1";
 }
 extern "C" {
 
@@ -29,9 +37,13 @@ extern "C" {
     {
         Update();
     }
-    JNIEXPORT void JNICALL Java_com_example_Blocks_GL3JNILib_InputEvent(JNIEnv *env, jobject clazz) {
+    JNIEXPORT void JNICALL Java_com_example_Blocks_GL3JNILib_InputEvent(JNIEnv *env, jobject obj,jboolean isTouched, jfloat x, jfloat y) {
         // TODO: implement InputEvent()
 
-        Inputsystem();
+        Inputsystem(isTouched, x, y);
+    }
+
+    JNIEXPORT jstring JNICALL Java_com_example_Blocks_GL3JNILib_getRoundCount(JNIEnv * env, jobject obj) {
+        return  env->NewStringUTF(getRoundCount().c_str()) ;
     }
 };
