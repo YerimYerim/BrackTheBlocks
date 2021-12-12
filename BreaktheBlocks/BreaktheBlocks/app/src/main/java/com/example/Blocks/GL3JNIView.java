@@ -22,6 +22,7 @@ import android.graphics.PixelFormat;
 import android.opengl.GLSurfaceView;
 import android.util.Log;
 import android.view.SurfaceHolder;
+import android.widget.TextView;
 
 import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGLConfig;
@@ -310,8 +311,11 @@ class GL3JNIView extends GLSurfaceView {
     }
 
     private static class Renderer implements GLSurfaceView.Renderer {
+
         public void onDrawFrame(GL10 gl) {
+
             GL3JNILib.Update();
+
         }
 
         public void onSurfaceChanged(GL10 gl, int width, int height) {

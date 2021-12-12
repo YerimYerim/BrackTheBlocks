@@ -34,7 +34,7 @@
             android:layout_gravity="center|fill_horizontal"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:text="SCORE  "
+            android:text="ROUND :"
             android:textAlignment="center"
             android:textSize="20sp" />
 
