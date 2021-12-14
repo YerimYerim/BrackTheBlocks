@@ -9,8 +9,6 @@ Particle::~Particle()
 Particle::Particle(GLfloat posX, GLfloat PosY, GLfloat VelX, GLfloat VelY, GLfloat ScaleX, GLfloat ScaleY ,GLfloat R, GLfloat G, GLfloat B, GLfloat A, GLfloat lifetime)
 {
 	Position = { posX, PosY, 0.0 };
-
-	vec3 tempDirection = { VelX,VelY,0 };
 	
 	//vec3 tempColor = {  rand() % 10 * 0.1f , rand() % 10 * 0.1f , rand() % 10 * 0.1f };
 	Scale = { ScaleX, ScaleY, 1};

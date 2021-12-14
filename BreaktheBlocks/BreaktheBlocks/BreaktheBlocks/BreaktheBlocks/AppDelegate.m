@@ -6,7 +6,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import "GLView.h"
 @interface AppDelegate ()
 
 @end
@@ -15,7 +15,14 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    m_window = [[UIWindow alloc] initWithFrame:screenBounds];
+    UIViewController *vc = [[UIViewController alloc] init];
+    
+    [m_window setRootViewController:vc];
+    m_view = [[GLView alloc] initWithFrame:screenBounds];
+    [vc setView:m_view];
+    [m_window makeKeyAndVisible];
     return YES;
 }
 

@@ -25,7 +25,7 @@ void transGameWorldToGL(GLfloat WorldWidth, GLfloat WorldHeight,GLfloat ScreenRa
 void updateDeltaTime(float& deltatime, std::chrono::system_clock::time_point& lastTime)
 {
 	std::chrono::system_clock::time_point curTime = std::chrono::system_clock::now();
-	deltatime = (curTime - lastTime).count()* 0.00001f;
+    deltatime = (curTime - lastTime).count()* 0.00001f;
 	lastTime = curTime;
 }
 unsigned int loadShader(const char* vertexShaderSource, const char* fragmentShaderSource)
