@@ -8,14 +8,19 @@
 #include <OpenGLES/ES3/gl.h>
 #endif
 #include "iostream"
-#include "math.h"
 #include "string"
-#include "stdlib.h"
 #include "vector"
-#include "stdio.h"
 #include "deque"
 #include "chrono"
 #include "algorithm"
+#include "math.h"
+
+#include "stdlib.h"
+
+#include "stdio.h"
+
+	
+
 
 struct vec3
 {
