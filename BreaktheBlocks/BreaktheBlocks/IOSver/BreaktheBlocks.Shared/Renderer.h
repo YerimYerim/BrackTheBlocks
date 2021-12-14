@@ -15,8 +15,9 @@ private:
 	GLfloat screenHeight;
 	GLfloat circleVertexBuffer[12 * 3 * 3];
 	GLfloat circleColor[12 * 3 * 3 + 3];
-    GLuint m_framebuffer;
     GLuint m_renderbuffer;
+    GLuint m_framebuffer;
+    
 	GLfloat rectangleVertexBuffer[18] = {
 	   1.0f, -1.0f, 0.0f,
 	   1.0f,  1.0f, 0.0f,
@@ -51,9 +52,9 @@ private:
 		"out vec3 vertPos;\n"
 		"void main()\n"
 		"{\n"
-		" vec4 aSize = vec4(aSizeX , aSizeY * aRatio, 1.0,1.0);\n"
-		" vec4 aTrasnform = vec4(aTransX, aTransY, 0, 0.0);\n"
-		" vec4 aPosition = vec4(aPos.x , aPos.y, 1.0, 1.0);\n"
+		" vec4 aSize = vec4(aSizeX , aSizeY * aRatio, 1.0f,1.0f);\n"
+		" vec4 aTrasnform = vec4(aTransX, aTransY, 0.0f, 0.0f);\n"
+		" vec4 aPosition = vec4(aPos.x , aPos.y, 1.0f, 1.0f);\n"
 		" vec4 pos = aPosition * aSize + aTrasnform;\n"
 		" gl_Position = pos;\n"
 		" vertPos = pos.xyz;\n"

@@ -6,7 +6,6 @@
 #include "GLES3/gl3ext.h"
 #elif __APPLE__
 #include <OpenGLES/ES3/gl.h>
-#include <OpenGLES/ES3/glext.h>
 #endif
 #include "iostream"
 #include "string"

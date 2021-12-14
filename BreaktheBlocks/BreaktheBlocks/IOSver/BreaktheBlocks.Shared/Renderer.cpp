@@ -17,7 +17,7 @@ Renderer::Renderer(GLfloat width, GLfloat height)
     glBindFramebuffer(GL_FRAMEBUFFER, m_framebuffer);
     
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, m_renderbuffer);
-        
+    
     glGenVertexArrays(1, &VertexArrayID);
     glBindVertexArray(VertexArrayID);
 
@@ -62,7 +62,7 @@ void Renderer::setupObjectRenderer( GameObject& gameObject, shape Shape )
 }
 void Renderer::updateRenderer()
 {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 }
 void Renderer::makeCirCle()
@@ -116,7 +116,7 @@ void Renderer::makeCirCle()
 void Renderer::drawGameObject(GameObject& gameObject)
 { 
     glUseProgram(shader);
-    
+
     GLuint attribPosLoc = glGetAttribLocation(shader, "aPos");
     glGenBuffers(1, &gameObject.vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, gameObject.vertexBuffer);
