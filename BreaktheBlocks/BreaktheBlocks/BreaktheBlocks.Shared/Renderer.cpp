@@ -13,7 +13,7 @@ Renderer::Renderer(GLfloat width, GLfloat height)
     glGenRenderbuffers(1, &m_renderbuffer);
     glBindRenderbuffer(GL_RENDERBUFFER, m_renderbuffer);
     
-    glGenFramebuffers(1, &m_framebuffer);
+    glGenFramebuffers(0, &m_framebuffer);
     glBindFramebuffer(GL_FRAMEBUFFER, m_framebuffer);
     
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, m_renderbuffer);

@@ -4,8 +4,6 @@
 #import <OpenGLES/ES3/gl.h>
 #import "mach/mach_time.h"
 #import <OpenGLES/ES3/glext.h>
-const bool ForceES1 = false;
-
 @implementation GLView
 
 + (Class) layerClass{
