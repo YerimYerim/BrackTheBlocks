@@ -30,7 +30,7 @@
         //init TextView
         
         UILabel *myTextView = [[UILabel alloc] init];
-        myTextView.text= @"Score";
+        myTextView.text= @"ROUND";
         myTextView.frame = CGRectMake(0,CGRectGetWidth(frame)* 0.1, CGRectGetWidth(frame), CGRectGetWidth(frame)* 0.1);
         myTextView.textAlignment = NSTextAlignmentCenter;
         myTextView.font = [UIFont systemFontOfSize:23];
@@ -39,7 +39,7 @@
         textView = [[UILabel alloc] init];
         textView.frame = CGRectMake(0,CGRectGetWidth(frame)* 0.25, CGRectGetWidth(frame), CGRectGetWidth(frame)* 0.1);
         textView.textAlignment = NSTextAlignmentCenter;
-        textView.font = [UIFont systemFontOfSize:20];
+        textView.font = [UIFont systemFontOfSize:23];
         textView.text = @"1";
         [self addSubview:textView];
         
@@ -47,7 +47,6 @@
     return self;
 }
 - (void) drawView:(CADisplayLink*) displayLink{
-    
     scene->updateScene();
     textView.text = [NSString stringWithCString:scene->getRoundCount().c_str()encoding:[NSString defaultCStringEncoding]];
     [m_context presentRenderbuffer:GL_RENDERBUFFER];
