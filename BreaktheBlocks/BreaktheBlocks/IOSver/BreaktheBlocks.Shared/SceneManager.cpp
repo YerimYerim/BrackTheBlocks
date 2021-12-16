@@ -191,7 +191,7 @@ void SceneManager::setBallActiveTrue()
 
 void SceneManager::input(GLboolean isTouched, GLfloat x, GLfloat y)
 {
-	#ifdef __ANDROID__
+
 	if (stageState == END)
 	{
 		if (isTouched == false) // ��ġ off
@@ -222,9 +222,7 @@ void SceneManager::input(GLboolean isTouched, GLfloat x, GLfloat y)
 		}
 
 	}
-	#elif __APPLE__
 
-	#endif
 }
 
 void SceneManager::initBlockLine()

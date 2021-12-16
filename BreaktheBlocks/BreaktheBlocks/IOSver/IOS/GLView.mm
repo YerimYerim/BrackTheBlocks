@@ -26,8 +26,7 @@
         CADisplayLink* displayLink;
         displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(drawView:)];
         [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-
+        
     }
     return self;
 }
@@ -37,9 +36,20 @@
     
     [m_context presentRenderbuffer:GL_RENDERBUFFER];
 }
-
-- (void) didRotate:(NSNotification *)notification{
-    [self drawView:nil];
+- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = [[event allTouches] anyObject];
+    CGPoint location = [touch locationInView:self];
+    scene->input(true, location.x, location.y);
+    }
+- (void) touchesEnded:(NSSet*)touches withEvent:(UIEvent *)event{
+    UITouch *touch = [[event allTouches] anyObject];
+    CGPoint location = [touch locationInView:self];
+    scene->input(false, location.x, location.y);
 }
-
+- (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [[event allTouches] anyObject];
+    CGPoint location = [touch locationInView:self];
+    scene->input(true, location.x, location.y);
+}
 @end
