@@ -16,17 +16,17 @@
 		4170EAE31EE7081C00FC8655 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4170EAE21EE7081C00FC8655 /* UIKit.framework */; };
 		4170EAE51EE7083000FC8655 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4170EAE41EE7083000FC8655 /* CoreGraphics.framework */; };
 		4170EAE71EE7083500FC8655 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4170EAE61EE7083500FC8655 /* QuartzCore.framework */; };
-		8F62227A2768DCF6006A88AA /* Particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F6222682768DCF6006A88AA /* Particle.cpp */; };
-		8F62227B2768DCF6006A88AA /* GameUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F62226B2768DCF6006A88AA /* GameUtility.cpp */; };
-		8F62227C2768DCF6006A88AA /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F62226C2768DCF6006A88AA /* GameObject.cpp */; };
-		8F62227D2768DCF6006A88AA /* FragmentShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 8F62226F2768DCF6006A88AA /* FragmentShader.glsl */; };
-		8F62227E2768DCF6006A88AA /* BreaktheBlocks.Shared.vcxitems.filters in Resources */ = {isa = PBXBuildFile; fileRef = 8F6222702768DCF6006A88AA /* BreaktheBlocks.Shared.vcxitems.filters */; };
-		8F62227F2768DCF6006A88AA /* InputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F6222712768DCF6006A88AA /* InputManager.cpp */; };
-		8F6222802768DCF6006A88AA /* SceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F6222742768DCF6006A88AA /* SceneManager.cpp */; };
-		8F6222812768DCF6006A88AA /* BreaktheBlocks.Shared.vcxitems in Resources */ = {isa = PBXBuildFile; fileRef = 8F6222752768DCF6006A88AA /* BreaktheBlocks.Shared.vcxitems */; };
-		8F6222822768DCF6006A88AA /* VertexShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 8F6222762768DCF6006A88AA /* VertexShader.glsl */; };
-		8F6222832768DCF6006A88AA /* ParticleManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F6222772768DCF6006A88AA /* ParticleManager.cpp */; };
-		8F6222842768DCF6006A88AA /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F6222792768DCF6006A88AA /* Renderer.cpp */; };
+		8F622427276B2745006A88AA /* Particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F622415276B2744006A88AA /* Particle.cpp */; };
+		8F622428276B2745006A88AA /* GameUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F622418276B2744006A88AA /* GameUtility.cpp */; };
+		8F622429276B2745006A88AA /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F622419276B2744006A88AA /* GameObject.cpp */; };
+		8F62242A276B2745006A88AA /* FragmentShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 8F62241C276B2744006A88AA /* FragmentShader.glsl */; };
+		8F62242B276B2745006A88AA /* BreaktheBlocks.Shared.vcxitems.filters in Resources */ = {isa = PBXBuildFile; fileRef = 8F62241D276B2744006A88AA /* BreaktheBlocks.Shared.vcxitems.filters */; };
+		8F62242C276B2745006A88AA /* InputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F62241E276B2744006A88AA /* InputManager.cpp */; };
+		8F62242D276B2745006A88AA /* SceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F622421276B2744006A88AA /* SceneManager.cpp */; };
+		8F62242E276B2745006A88AA /* BreaktheBlocks.Shared.vcxitems in Resources */ = {isa = PBXBuildFile; fileRef = 8F622422276B2744006A88AA /* BreaktheBlocks.Shared.vcxitems */; };
+		8F62242F276B2745006A88AA /* VertexShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 8F622423276B2744006A88AA /* VertexShader.glsl */; };
+		8F622430276B2745006A88AA /* ParticleManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F622424276B2745006A88AA /* ParticleManager.cpp */; };
+		8F622431276B2745006A88AA /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F622426276B2745006A88AA /* Renderer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,24 +43,24 @@
 		4170EAE21EE7081C00FC8655 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4170EAE41EE7083000FC8655 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		4170EAE61EE7083500FC8655 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		8F6222682768DCF6006A88AA /* Particle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Particle.cpp; sourceTree = "<group>"; };
-		8F6222692768DCF6006A88AA /* InputManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputManager.h; sourceTree = "<group>"; };
-		8F62226A2768DCF6006A88AA /* GameObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameObject.h; sourceTree = "<group>"; };
-		8F62226B2768DCF6006A88AA /* GameUtility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameUtility.cpp; sourceTree = "<group>"; };
-		8F62226C2768DCF6006A88AA /* GameObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameObject.cpp; sourceTree = "<group>"; };
-		8F62226D2768DCF6006A88AA /* GameUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameUtility.h; sourceTree = "<group>"; };
-		8F62226E2768DCF6006A88AA /* Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
-		8F62226F2768DCF6006A88AA /* FragmentShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FragmentShader.glsl; sourceTree = "<group>"; };
-		8F6222702768DCF6006A88AA /* BreaktheBlocks.Shared.vcxitems.filters */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BreaktheBlocks.Shared.vcxitems.filters; sourceTree = "<group>"; };
-		8F6222712768DCF6006A88AA /* InputManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputManager.cpp; sourceTree = "<group>"; };
-		8F6222722768DCF6006A88AA /* SceneManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneManager.h; sourceTree = "<group>"; };
-		8F6222732768DCF6006A88AA /* Particle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Particle.h; sourceTree = "<group>"; };
-		8F6222742768DCF6006A88AA /* SceneManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneManager.cpp; sourceTree = "<group>"; };
-		8F6222752768DCF6006A88AA /* BreaktheBlocks.Shared.vcxitems */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BreaktheBlocks.Shared.vcxitems; sourceTree = "<group>"; };
-		8F6222762768DCF6006A88AA /* VertexShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VertexShader.glsl; sourceTree = "<group>"; };
-		8F6222772768DCF6006A88AA /* ParticleManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleManager.cpp; sourceTree = "<group>"; };
-		8F6222782768DCF6006A88AA /* ParticleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleManager.h; sourceTree = "<group>"; };
-		8F6222792768DCF6006A88AA /* Renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Renderer.cpp; sourceTree = "<group>"; };
+		8F622415276B2744006A88AA /* Particle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Particle.cpp; sourceTree = "<group>"; };
+		8F622416276B2744006A88AA /* InputManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputManager.h; sourceTree = "<group>"; };
+		8F622417276B2744006A88AA /* GameObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameObject.h; sourceTree = "<group>"; };
+		8F622418276B2744006A88AA /* GameUtility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameUtility.cpp; sourceTree = "<group>"; };
+		8F622419276B2744006A88AA /* GameObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameObject.cpp; sourceTree = "<group>"; };
+		8F62241A276B2744006A88AA /* GameUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameUtility.h; sourceTree = "<group>"; };
+		8F62241B276B2744006A88AA /* Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
+		8F62241C276B2744006A88AA /* FragmentShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FragmentShader.glsl; sourceTree = "<group>"; };
+		8F62241D276B2744006A88AA /* BreaktheBlocks.Shared.vcxitems.filters */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BreaktheBlocks.Shared.vcxitems.filters; sourceTree = "<group>"; };
+		8F62241E276B2744006A88AA /* InputManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputManager.cpp; sourceTree = "<group>"; };
+		8F62241F276B2744006A88AA /* SceneManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneManager.h; sourceTree = "<group>"; };
+		8F622420276B2744006A88AA /* Particle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Particle.h; sourceTree = "<group>"; };
+		8F622421276B2744006A88AA /* SceneManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneManager.cpp; sourceTree = "<group>"; };
+		8F622422276B2744006A88AA /* BreaktheBlocks.Shared.vcxitems */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BreaktheBlocks.Shared.vcxitems; sourceTree = "<group>"; };
+		8F622423276B2744006A88AA /* VertexShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VertexShader.glsl; sourceTree = "<group>"; };
+		8F622424276B2745006A88AA /* ParticleManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleManager.cpp; sourceTree = "<group>"; };
+		8F622425276B2745006A88AA /* ParticleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleManager.h; sourceTree = "<group>"; };
+		8F622426276B2745006A88AA /* Renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Renderer.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +81,7 @@
 		4170EA8E1EE7064E00FC8655 = {
 			isa = PBXGroup;
 			children = (
-				8F6222672768DCF6006A88AA /* BreaktheBlocks.Shared */,
+				8F622414276B2744006A88AA /* BreaktheBlocks.Shared */,
 				4170EA991EE7064E00FC8655 /* IOS */,
 				4170EA981EE7064E00FC8655 /* Products */,
 				4170EADF1EE7080D00FC8655 /* Frameworks */,
@@ -122,29 +122,30 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		8F6222672768DCF6006A88AA /* BreaktheBlocks.Shared */ = {
+		8F622414276B2744006A88AA /* BreaktheBlocks.Shared */ = {
 			isa = PBXGroup;
 			children = (
-				8F6222682768DCF6006A88AA /* Particle.cpp */,
-				8F6222692768DCF6006A88AA /* InputManager.h */,
-				8F62226A2768DCF6006A88AA /* GameObject.h */,
-				8F62226B2768DCF6006A88AA /* GameUtility.cpp */,
-				8F62226C2768DCF6006A88AA /* GameObject.cpp */,
-				8F62226D2768DCF6006A88AA /* GameUtility.h */,
-				8F62226E2768DCF6006A88AA /* Renderer.h */,
-				8F62226F2768DCF6006A88AA /* FragmentShader.glsl */,
-				8F6222702768DCF6006A88AA /* BreaktheBlocks.Shared.vcxitems.filters */,
-				8F6222712768DCF6006A88AA /* InputManager.cpp */,
-				8F6222722768DCF6006A88AA /* SceneManager.h */,
-				8F6222732768DCF6006A88AA /* Particle.h */,
-				8F6222742768DCF6006A88AA /* SceneManager.cpp */,
-				8F6222752768DCF6006A88AA /* BreaktheBlocks.Shared.vcxitems */,
-				8F6222762768DCF6006A88AA /* VertexShader.glsl */,
-				8F6222772768DCF6006A88AA /* ParticleManager.cpp */,
-				8F6222782768DCF6006A88AA /* ParticleManager.h */,
-				8F6222792768DCF6006A88AA /* Renderer.cpp */,
+				8F622415276B2744006A88AA /* Particle.cpp */,
+				8F622416276B2744006A88AA /* InputManager.h */,
+				8F622417276B2744006A88AA /* GameObject.h */,
+				8F622418276B2744006A88AA /* GameUtility.cpp */,
+				8F622419276B2744006A88AA /* GameObject.cpp */,
+				8F62241A276B2744006A88AA /* GameUtility.h */,
+				8F62241B276B2744006A88AA /* Renderer.h */,
+				8F62241C276B2744006A88AA /* FragmentShader.glsl */,
+				8F62241D276B2744006A88AA /* BreaktheBlocks.Shared.vcxitems.filters */,
+				8F62241E276B2744006A88AA /* InputManager.cpp */,
+				8F62241F276B2744006A88AA /* SceneManager.h */,
+				8F622420276B2744006A88AA /* Particle.h */,
+				8F622421276B2744006A88AA /* SceneManager.cpp */,
+				8F622422276B2744006A88AA /* BreaktheBlocks.Shared.vcxitems */,
+				8F622423276B2744006A88AA /* VertexShader.glsl */,
+				8F622424276B2745006A88AA /* ParticleManager.cpp */,
+				8F622425276B2745006A88AA /* ParticleManager.h */,
+				8F622426276B2745006A88AA /* Renderer.cpp */,
 			);
-			path = BreaktheBlocks.Shared;
+			name = BreaktheBlocks.Shared;
+			path = ../BreaktheBlocks.Shared;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,7 +175,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0830;
-				ORGANIZATIONNAME = qiu;
+				ORGANIZATIONNAME = yerim;
 				TargetAttributes = {
 					4170EA961EE7064E00FC8655 = {
 						CreatedOnToolsVersion = 8.3.2;
@@ -206,12 +207,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F62242E276B2745006A88AA /* BreaktheBlocks.Shared.vcxitems in Resources */,
 				4170EAAA1EE7064E00FC8655 /* LaunchScreen.storyboard in Resources */,
-				8F62227E2768DCF6006A88AA /* BreaktheBlocks.Shared.vcxitems.filters in Resources */,
+				8F62242F276B2745006A88AA /* VertexShader.glsl in Resources */,
+				8F62242A276B2745006A88AA /* FragmentShader.glsl in Resources */,
 				4170EAA71EE7064E00FC8655 /* Assets.xcassets in Resources */,
-				8F62227D2768DCF6006A88AA /* FragmentShader.glsl in Resources */,
-				8F6222822768DCF6006A88AA /* VertexShader.glsl in Resources */,
-				8F6222812768DCF6006A88AA /* BreaktheBlocks.Shared.vcxitems in Resources */,
+				8F62242B276B2745006A88AA /* BreaktheBlocks.Shared.vcxitems.filters in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,15 +223,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F6222842768DCF6006A88AA /* Renderer.cpp in Sources */,
-				8F62227C2768DCF6006A88AA /* GameObject.cpp in Sources */,
 				4170EADD1EE707C500FC8655 /* GLView.mm in Sources */,
-				8F62227A2768DCF6006A88AA /* Particle.cpp in Sources */,
-				8F62227B2768DCF6006A88AA /* GameUtility.cpp in Sources */,
-				8F6222802768DCF6006A88AA /* SceneManager.cpp in Sources */,
-				8F62227F2768DCF6006A88AA /* InputManager.cpp in Sources */,
+				8F622430276B2745006A88AA /* ParticleManager.cpp in Sources */,
+				8F622427276B2745006A88AA /* Particle.cpp in Sources */,
+				8F62242D276B2745006A88AA /* SceneManager.cpp in Sources */,
+				8F622429276B2745006A88AA /* GameObject.cpp in Sources */,
 				4170EADC1EE707C500FC8655 /* AppDelegate.mm in Sources */,
-				8F6222832768DCF6006A88AA /* ParticleManager.cpp in Sources */,
+				8F622431276B2745006A88AA /* Renderer.cpp in Sources */,
+				8F622428276B2745006A88AA /* GameUtility.cpp in Sources */,
+				8F62242C276B2745006A88AA /* InputManager.cpp in Sources */,
 				4170EA9C1EE7064E00FC8655 /* main.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
