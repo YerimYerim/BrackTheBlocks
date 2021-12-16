@@ -8,6 +8,7 @@
 {
     EAGLContext  * m_context;
     SceneManager * scene;
+    UILabel * textView;
 }
 
 - (void) drawView: (CADisplayLink*) displayLink;

@@ -27,13 +27,29 @@
         displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(drawView:)];
         [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
         
+        //init TextView
+        
+        UILabel *myTextView = [[UILabel alloc] init];
+        myTextView.text= @"Score";
+        myTextView.frame = CGRectMake(0,CGRectGetWidth(frame)* 0.1, CGRectGetWidth(frame), CGRectGetWidth(frame)* 0.1);
+        myTextView.textAlignment = NSTextAlignmentCenter;
+        myTextView.font = [UIFont systemFontOfSize:23];
+        [self addSubview:myTextView];
+        
+        textView = [[UILabel alloc] init];
+        textView.frame = CGRectMake(0,CGRectGetWidth(frame)* 0.25, CGRectGetWidth(frame), CGRectGetWidth(frame)* 0.1);
+        textView.textAlignment = NSTextAlignmentCenter;
+        textView.font = [UIFont systemFontOfSize:20];
+        textView.text = @"1";
+        [self addSubview:textView];
+        
     }
     return self;
 }
 - (void) drawView:(CADisplayLink*) displayLink{
     
     scene->updateScene();
-    
+    textView.text = [NSString stringWithCString:scene->getRoundCount().c_str()encoding:[NSString defaultCStringEncoding]];
     [m_context presentRenderbuffer:GL_RENDERBUFFER];
 }
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
