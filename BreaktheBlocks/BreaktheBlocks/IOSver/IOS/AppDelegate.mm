@@ -15,7 +15,6 @@
     [m_window setRootViewController:vc];
     m_view = [[GLView alloc] initWithFrame:screenBouds];
     [vc setView:m_view];
-    //[m_window addSubview:m_view];
     [m_window makeKeyAndVisible];
         
     return YES;
